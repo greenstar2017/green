@@ -8,5 +8,9 @@
 		<result column="card_id" property="cardId" />
 		<result column="create_time" property="createTime" />
 	</resultMap>
+	
+	<select id="selectListTest" resultMap="BaseResultMap">
+		select * from card_audit_passed_record
+	</select>
 
 </mapper>

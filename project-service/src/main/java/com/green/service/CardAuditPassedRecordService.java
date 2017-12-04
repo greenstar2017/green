@@ -1,7 +1,8 @@
 package com.green.service;
 
-import com.green.entity.CardAuditPassedRecord;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.green.entity.CardAuditPassedRecord;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface CardAuditPassedRecordService extends IService<CardAuditPassedRecord> {
 	
+	Page<CardAuditPassedRecord> selectPageTest();
 }

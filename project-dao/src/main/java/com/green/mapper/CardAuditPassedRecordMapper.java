@@ -1,7 +1,10 @@
 package com.green.mapper;
 
+import java.util.List;
+
 import com.green.entity.CardAuditPassedRecord;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface CardAuditPassedRecordMapper extends BaseMapper<CardAuditPassedRecord> {
 
+	List<CardAuditPassedRecord> selectListTest(Pagination page);
 }
