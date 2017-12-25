@@ -18,6 +18,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.green</groupId>
+			<artifactId>modules-framework-base</artifactId>
+			<version>${modules.version}</version>
+		</dependency>
 		<!-- commons管理 start -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
