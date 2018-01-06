@@ -66,7 +66,19 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+                     <exclude>static/fonts/**</exclude>
+                     <exclude>static/vendors/bower_components/material-design-iconic-font/dist/fonts/**</exclude>
+                 </excludes>
 			</resource>
+			<resource>
+                 <directory>src/main/resources</directory>
+                 <filtering>false</filtering>
+                 <includes>
+                     <include>static/fonts/**</include>
+                     <include>static/vendors/bower_components/material-design-iconic-font/dist/fonts/**</include>
+                 </includes>
+             </resource>
 		</resources>
 		<testResources>
 			<testResource>
