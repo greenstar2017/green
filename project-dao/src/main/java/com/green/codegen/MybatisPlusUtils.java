@@ -11,25 +11,25 @@ import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
- * @Auther ShuPF
- * @Create 2017/7/5 0005
+ * 
+ * @author yuanhualiang
+ *
  */
-
 public class MybatisPlusUtils {
 
 	public static void main(String[] args) {
 		String[][] models = new String[][] {
 				{ "model",
-						"F:/workspace/project/project-dao/src/main/java" },
+						"F:/workspace/green/project-dao/src/main/java" },
 				{ "mapper",
-						"F:/workspace/project/project-dao/src/main/java" },
+						"F:/workspace/green/project-dao/src/main/java" },
 				{ "xml",
-						"F:/workspace/project/project-dao/src/main/resources" },
+						"F:/workspace/green/project-dao/src/main/resources" },
 				{ "service",
-						"F:/workspace/project/project-service/src/main/java" },
+						"F:/workspace/green/project-service/src/main/java" },
 				{
 						"serviceImpl",
-						"F:/workspace/project/project-service/src/main/java" } };
+						"F:/workspace/green/project-service/src/main/java" } };
 		for (String[] model : models) {
 			shell(model);
 		}
@@ -71,15 +71,15 @@ public class MybatisPlusUtils {
 		});
 		dsc.setDriverName("com.mysql.jdbc.Driver");
 		dsc.setUsername("root");
-		dsc.setPassword("jianshaadmin");
-		dsc.setUrl("jdbc:mysql://119.29.143.253:3306/jiansha?characterEncoding=utf8");
+		dsc.setPassword("hello123");
+		dsc.setUrl("jdbc:mysql://localhost:3306/smallloan?characterEncoding=utf8");
 		mpg.setDataSource(dsc);
 
 		// 策略配置
 		StrategyConfig strategy = new StrategyConfig();
 		// strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
 		strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-		strategy.setInclude(new String[] { "card_audit_passed_record" }); // 需要生成的表
+		strategy.setInclude(new String[] { "user_account" }); // 需要生成的表
 		mpg.setStrategy(strategy);
 
 		// 包配置

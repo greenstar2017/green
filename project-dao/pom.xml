@@ -22,10 +22,10 @@
 			<version>${modules.version}</version>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.green</groupId>
 			<artifactId>modules-framework-cache</artifactId>
 			<version>${modules.version}</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 </project>
