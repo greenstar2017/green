@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('书籍')"></head>
+<link rel="stylesheet" href="/icca/css/baguettebox.min.css"/>
+<script type="text/javascript" src="/icca/js/slides.min.jquery.js"></script>
+<script src="/icca/js/baguettebox.min.js"></script>
+<script>
+	$(function() {
+		$('.bookpic').slides({
+			preload : true,
+			preloadImage : '/icca/images/loading.gif',
+			effect : 'slide, fade',
+			crossfade : true,
+			slideSpeed : 350,
+			fadeSpeed : 500,
+			generateNextPrev : true,
+			generatePagination : false
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(function() {
+		baguetteBox.run('.baguetteBoxOne', {
+			animation : 'fadeIn',
+		});
+	});
+</script>
+<style>
+.books {min-height: 500px;}
+</style>
+
+<body>
+<div class="ccamain" style="margin-bottom:50px;">
+	<div class="ccanav">
+    	<div th:include="common/slicenav :: slicenav('book', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+        <div class="books" th:each="data : ${dataList}">
+        	<div class="bookpic" id="products">
+            	<div class="sebig"></div>
+            	<div class="bookbigpic slides_container baguetteBoxOne">
+                	<a th:href="${pic.picture}" th:each="pic : ${data.pictureList}"><img th:src="${pic.picture}"></a>
+                </div>
+                <div class="booksmallpic">
+                	<ul class="pagination">
+                    	<li th:each="pic : ${data.pictureList}"><a th:href="${pic.picture}"><img th:src="${pic.picture}"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="booktext">
+            	<h4 th:text="${data.title}"></h4>
+                <div th:utext="${data.desc}"></div>
+            </div>
+       	</div>
+       	<br/><br/><br/><br/><br/>
+    </div>
+</div>
+
+
+</body>
+</html>

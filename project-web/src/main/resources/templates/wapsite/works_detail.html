@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head th:include="common/header-wap :: header('作品')"></head>
+<script>
+jQuery(document).ready(function() {
+	jQuery(document).on("click",".ipworkstit .ipworkstit_info",function(){
+		$(".ipinfo").fadeIn(300);
+	})
+	
+	window.closeInfo = function() {
+		$(".ipinfo").fadeOut(300);
+	}
+	jQuery("#video_close, #video_show").click(function() {
+		if (jQuery(".ipvideobg").css("display") == 'none') {
+			jQuery(".ipvideobg").show();
+		} else {
+			jQuery(".ipvideobg").hide();
+			var myVideo=document.getElementById("example_video_1");
+			myVideo.pause();
+		}
+	});
+});
+</script>
+<body>
+<div th:include="common/slicenav-wap :: slicenav('works', ${lang})"></div>
+
+<div class="ipcont">
+	<div class="ipworksdeta">
+    	<h4 th:text="${data.title}"></h4>
+        <img th:each="pic,iterStat:${data.pictureList}" th:src="${pic.picture}">
+    </div>
+    <div class="ipworkstit">
+    	<a href="javascript:;" class="ipworkstit_info" th:text="${lang}==''?'- info':(${lang}=='en'?'- info':'- 信息')"></a>
+        <a href="javascript:;" id="video_show" th:text="${lang}==''?'- video':(${lang}=='en'?'- video':'- 视频')"></a>
+    </div>
+</div>
+<div class="ipinfo">
+<h4><i th:text="${data.title}"></i><span class="info_close" onclick="closeInfo()">×</span></h4>
+<div th:utext="${data.desc}"></div>
+</div>
+<div class="ipvideobg" style="display:none">
+		<div class="ipvideo">
+        	<h4><span id="video_close">×</span></h4>
+            <video width="100%" height="auto" controls   id="example_video_1">
+              <source th:src="${data.videoUrl}" th:attr="type='video/'+${data.videoType}" >
+            </video>
+        </div>
+</div>
+</body>
+</html>

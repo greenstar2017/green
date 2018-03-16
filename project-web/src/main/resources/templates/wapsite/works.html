@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head th:include="common/header-wap :: header('作品')"></head>
+
+<body>
+	<div th:include="common/slicenav-wap :: slicenav('works', ${lang})"></div>
+
+	<div class="ipcont">
+		<div class="ipworks">
+			<div class="workslist" th:each="data : ${resultMap}">
+
+				<h4 th:text="${data.key}"></h4>
+				<ul>
+					<li th:each="subdata : ${data.value}"><a
+						th:href="@{${lang}!=''?'/'+${lang}+'/works_detail/'+${subdata.id}+'.html':'/works_detail/'+${subdata.id}+'.html'}"><img
+							th:src="${subdata.logo}"><span
+							th:utext="'-&nbsp;' + ${subdata.title}"></span></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="elevator_item">
+		<a id="elevator" onclick="return false;" title="回到顶部"></a>
+	</div>
+</body>
+</html>

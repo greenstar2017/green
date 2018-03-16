@@ -1,0 +1,51 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">新闻管理</h1>
+</div>
+<div class="wrapper-md" ng-controller="NewsMngCtrl">
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+  <div class="panel panel-default">
+    <div class="row wrapper">
+      <div class="col-sm-7">
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">&nbsp;
+          <!-- <input type="text" class="input-sm form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">搜索</button> 
+          </span> -->
+        </div>
+      </div>
+      <div class="col-sm-2">
+      	<div class="btn-group pull-right">
+		     <a type="button" class="btn btn-sm btn-success glyphicon glyphicon-plus" ui-sref="app.news_edit">添加</a>
+	     </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+          	<th>排序</th>
+            <th>标题</th>
+            <th>标题(英)</th>
+            <th>发布日期</th>
+            <th style="width:160px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in result.data">
+            <td>{{data.orderField}}</td>
+            <td>{{data.title}}</td>
+            <td>{{data.titleEn}}</td>
+            <td>{{data.publish|date:'yyyy-MM-dd'}}</td>
+            <td>
+              <a type="button" class="btn-sm btn-warning" ng-click="goEdit(data)">编辑</a>
+              <a type="button" class="btn-sm btn-danger" ng-click="goDelete(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <tm-pagination conf="paginationConf"></tm-pagination>
+</div>

@@ -11,6 +11,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import com.green.annotations.UserId;
 import com.green.annotations.UserInfo;
 import com.green.auth.utils.LoginUtils;
+import com.green.entity.UserAccount;
 import com.green.service.LoginService;
 
 /**
@@ -36,7 +37,7 @@ public class UserInfoArgumentResolver implements WebArgumentResolver {
 			return isLogin ? userId : -1;
 		}
 
-		if (UserInfo.class.equals(methodParameter.getParameterType())) {
+		if (UserAccount.class.equals(methodParameter.getParameterType())) {
 			return isLogin ? loginService.getUserInfo(userId) : null;
 		}
 

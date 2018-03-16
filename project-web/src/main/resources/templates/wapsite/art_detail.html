@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head th:include="common/header-wap :: header('艺术')"></head>
+<script>
+jQuery(document).ready(function() {
+	jQuery(document).on("click",".ipworkstit .ipworkstit_info",function(){
+		$(".ipinfo").fadeIn(300);
+	})
+	
+	window.closeInfo = function() {
+		$(".ipinfo").fadeOut(300);
+	}
+	jQuery("#video_close, #video_show").click(function() {
+		if (jQuery(".ipvideobg").css("display") == 'none') {
+			jQuery(".ipvideobg").show();
+		} else {
+			jQuery(".ipvideobg").hide();
+			var myVideo=document.getElementById("example_video_1");
+			myVideo.pause();
+		}
+	});
+});
+</script>
+<body>
+<div th:include="common/slicenav-wap :: slicenav('art', ${lang})"></div>
+
+<div class="ipcont">
+	<div class="ipworksdeta">
+    	<h4 th:text="${data.title}"></h4>
+        <img th:each="pic,iterStat:${data.pictureList}" th:src="${pic.picture}">
+    </div>
+    <div class="ipworkstit">
+    	<a href="javascript:;" class="ipworkstit_info" th:text="${lang}==''?'- info':(${lang}=='en'?'- info':'- 信息')"></a>
+    </div>
+</div>
+<div class="ipinfo">
+<h4><i th:text="${data.title}"></i><span class="info_close" onclick="closeInfo()">×</span></h4>
+<div th:utext="${data.desc}"></div>
+</div>
+</body>
+</html>

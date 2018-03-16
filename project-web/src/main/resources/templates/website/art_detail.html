@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta charset="utf-8">
+
+<title th:text="CCA"></title>
+<link href="/icca/css/common.css" rel="stylesheet" type="text/css">
+<link href="/icca/css/pc.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/icca/js/jquery.min.js"></script>
+<script type="text/javascript" src="/icca/js/conn.js"></script>
+    <script>
+jQuery(document).on("click",".boxo .ad-detail",function(){
+	$(".menu-hover").hide();
+	$(".boxf").fadeIn(300);
+	$(".header-work").addClass("header-work-show");
+	$(".back-to-top").show();
+})
+jQuery(document).on("click",".boxf .back-fix a",function(){
+	//$(".menu-hover").show();
+	$(".header-work").removeClass("header-work-show");
+	$(".boxf").fadeOut(300);
+	$(".back-to-top").hide();
+})
+jQuery(document).on("click",".back-to-top",function(){
+	$('.boxf').animate({scrollTop:0},300);
+	return false;										
+})
+
+</script>
+<script src="/icca/js/script.work.js"></script>
+<link href="/icca/css/video-js.css" rel="stylesheet" type="text/css">
+<script>
+jQuery(document).on("click",".boxo .ad-show-video:not(.no-video)",function(){
+	$(".vd-box").fadeIn(300);
+})
+jQuery(document).on("click",".close-vdbox",function(){
+	$(".vd-box").fadeOut();
+	$(".video-js")[0].player.pause();
+})
+</script>
+</head>
+
+<body>
+<div class="ccamain">
+	<div class="ccanav" style="z-index:9;">
+    	<div th:include="common/slicenav :: slicenav('art', ${lang})"></div>
+    </div>
+    <div class="worksdeta">
+    		<div id="tmain" class="box box-other">
+
+            <div class="mbox mbox-work">
+                <div class="tdiv">
+                                <div class="boxo">
+                            <spsan class="prev"></spsan>
+                            <spsan class="next"></spsan>
+                            <div class="full-image"><!--<img src="http://www.i-mad.com/wp-content/uploads/2014/09/absolute01.jpg" lowsrc="http://www.i-mad.com/wp-content/uploads/2014/09/absolute01-202x143.jpg" />--></div>
+                            <div class="thumb-image" style="z-index:20">
+                                <ul class="ad-thumb-list" style="width:1320px;">
+                                     <li th:each="pic,iterStat:${data.pictureList}"><a href="javascript:;" th:attr="data-url=${pic.picture},data-low=${pic.picture},data-num=${iterStat.index}+1" data-width="1400" data-height="981" class='current'><img th:src="${pic.picture}" th:class="'image'+${iterStat.index}"></a></li>
+                                </ul>
+                            </div>
+                            <div class="controls">
+                                <div class="ad-title font-2" th:text="${data.title}"></div>
+                                <div class="ad-detail"><span class="font-2"><strong>-</strong>&nbsp;<span th:text="${lang}==''?'info':(${lang}=='en'?'info':'信息')"></span></span></div>
+                                <div class="ad-info"><span>1</span><font th:text="'&nbsp;/&nbsp;'+${data.pictureList.size()}"></font></div>
+                            </div>
+                            <div class="loading"></div>
+                        </div>
+                        
+                    <div class="boxf single-press thide">
+                        <!--boxf mbox-->
+                        <div class="boxf-mbox">
+                        <!--boxf mbox-->
+                        <div class="tdiv height-60"></div>
+                        <div class="tdiv content">
+                        <div th:utext="${data.desc}"></div>
+                        <div class="tdiv cutoff-line"></div>
+                                    <div class="tdiv back2">
+                            <div class="tdiv back back-fix font-1"><a href="javascript:;"><b></b><span th:text="${lang}==''?'back':(${lang}=='en'?'back':'返回')"></span></a></div>
+                        </div>
+                        <div class="tdiv height-100"></div>
+                    </div>
+                    <!--boxf mbox-->
+                    </div>
+                    <!--boxf mbox-->
+                </div>
+            </div>
+            
+            </div>
+    </div>
+</div>
+<div class="ad-box"></div>		
+<div class="vd-box">
+    <div class="main-vdbox">
+    	<div class="close-vdbox"></div>
+          <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="640" height="480" th:attr="poster=${data.logo}"  data-setup='{"autoplay":false}'>
+            <source th:src="${data.videoUrl}" th:attr="type='video/'+${data.videoType}" />
+          </video>
+  	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head th:include="common/header-wap :: header('联系我们')"></head>
+<body>
+<div th:include="common/slicenav-wap :: slicenav('contact', ${lang})"></div>
+    
+<div class="ipcont">
+    <div class="ipwork">
+    	<ul>
+        	<li th:each="data : ${dataResult}">
+            	<h4 th:text="${data.name}">></h4>
+                <div class="joblist" th:utext="${data.desc}">
+                        </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+  </div>
+  
+</div>
+
+</body>
+</html>

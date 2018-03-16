@@ -1,0 +1,190 @@
+<div class="wrapper-md" ng-controller="ICCA_WorksEditCtrl"
+	id="worksDivId">
+	<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+	<div class="panel panel-default">
+		<div class="panel-heading font-bold">作品编辑</div>
+		<div class="panel-body">
+			<form class="form-horizontal" method="post">
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='ch'"></div>
+				<div class="form-group" ng-if="lang=='ch'">
+					<label class="col-sm-2 control-label">标题</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="标题"
+							ng-model="data.title">
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='en'"></div>
+				<div class="form-group" ng-if="lang=='en'">
+					<label class="col-sm-2 control-label">标题英文</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="标题英文"
+							ng-model="data.titleEn">
+					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"
+					ng-show="lang=='ch'"></div>
+				<div class="form-group" ng-show="lang=='ch'">
+					<label class="col-sm-2 control-label">视频</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" placeholder="输入视频地址将忽略上传的视频"
+							ng-model="data.videoUrl">
+					</div>
+					<div class="col-sm-4">
+						<input ui-jq="filestyle" id="myfiles0" name="myfiles0" temp="myfiles0" type="file" onchange="updateFile('myfiles', this, 0)"
+							data-icon="false" data-classButton="btn btn-default"
+							data-classInput="form-control inline v-middle input-s">
+					</div>
+					<div class="col-sm-2">
+						<a type="button" class="btn btn-success" href="{{data.videoUrl}}" target="_blank">查看</a>
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in"
+					ng-show="lang=='ch'"></div>
+				<div class="form-group" ng-show="lang=='ch'">
+					<label class="col-sm-2 control-label">封面</label>
+					<div class="col-sm-6">
+						<input ui-jq="filestyle" id="myfiles1" name="myfiles1" temp="myfiles1" type="file" onchange="updateFile('myfiles', this, 1)"
+							data-icon="false" data-classButton="btn btn-default"
+							data-classInput="form-control inline v-middle input-s">
+					</div>
+					<div class="col-sm-4">
+						<a type="button" class="btn btn-success" href="{{data.showLogo}}" target="_blank">查看</a>
+					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"
+					ng-show="lang=='ch'"></div>
+				<div class="form-group" ng-show="lang=='ch'">
+					<label class="col-sm-2 control-label">图集</label>
+					<div class="col-sm-10">
+						<input ui-jq="filestyle" id="myfiles2" name="myfiles2" temp="myfiles2" type="file" onchange="updateFile('myfiles', this, 2)"
+							data-icon="false" data-classButton="btn btn-default" multiple="multiple"
+							data-classInput="form-control inline v-middle input-s">
+					</div>
+				</div>
+				<div class="form-group" ng-show="lang=='ch'" ng-if="data.pictureList.length > 0">
+				<label class="col-sm-2 control-label">&nbsp;</label>
+					<div class="col-sm-10">
+						<span ng-repeat="item in data.pictureList track by $index" ng-if="item.delFlag!=1">
+							<img width="80px" height="80px" style="margin-left:10px;" ng-src="{{item.showPicture}}">
+							<a style="position: relative; left: -10px; top: -40px; color: red;font-weight: bold" ng-click="item.delFlag=1">删除</a>
+						</span>
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='ch'"></div>
+				<div class="form-group" ng-if="lang=='ch'">
+					<label class="col-sm-2 control-label">状态</label>
+					<div class="col-sm-10">
+						<select class="form-control"
+							ng-options="item.key as item.val for item in stateList"
+							ng-model="data.state"></select>
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='en'"></div>
+				<div class="form-group" ng-if="lang=='en'">
+					<label class="col-sm-2 control-label">状态英文</label>
+					<div class="col-sm-10">
+						<select class="form-control"
+							ng-options="item.key as item.val for item in stateEnList"
+							ng-model="data.stateEn"></select>
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='ch'"></div>
+				<div class="form-group" ng-if="lang=='ch'">
+					<label class="col-sm-2 control-label">位置</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="位置"
+							ng-model="data.position">
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='en'"></div>
+				<div class="form-group" ng-if="lang=='en'">
+					<label class="col-sm-2 control-label">位置英文</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="位置英文"
+							ng-model="data.positionEn">
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='ch'"></div>
+				<div class="form-group" ng-if="lang=='ch'">
+					<label class="col-sm-2 control-label">类型</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="类型"
+							ng-model="data.type">
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='en'"></div>
+				<div class="form-group" ng-if="lang=='en'">
+					<label class="col-sm-2 control-label">类型英文</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="类型英文"
+							ng-model="data.typeEn">
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='ch'"></div>
+				<div class="form-group" ng-if="lang=='ch'">
+					<label class="col-sm-2 control-label">序号</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" placeholder="序号"
+							ng-model="data.orderField"> <span
+							class="help-block m-b-none">序号越小，优先排在前面.</span>
+					</div>
+				</div>
+
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='ch'"></div>
+				<div class="form-group" ng-if="lang=='ch'">
+					<label class="col-sm-2 control-label">详细内容</label>
+					<div class="col-sm-10">
+
+						<div class="btn-toolbar m-b-sm btn-editor"
+							data-role="editor-toolbar" data-target="#editor">
+							<div id="header_id" ng-include="'tpl/fulltext.html'"></div>
+						</div>
+						<div ui-jq="wysiwyg" id="desc" class="form-control"
+							style="overflow: scroll; height: 450px; max-height: 450px">
+							此处该有内容...</div>
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in" ng-if="lang=='en'"></div>
+				<div class="form-group" ng-if="lang=='en'">
+					<label class="col-sm-2 control-label">详细内容英文</label>
+					<div class="col-sm-10">
+
+						<div class="btn-toolbar m-b-sm btn-editor"
+							data-role="editor-toolbar" data-target="#editor">
+							<div id="header_id" ng-include="'tpl/fulltext.html'"></div>
+						</div>
+
+						<div ui-jq="wysiwyg" id="descEn" class="form-control"
+							style="overflow: scroll; height: 450px; max-height: 450px">
+							some thing here...</div>
+					</div>
+				</div>
+
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<button type="submit" class="btn btn-default" ng-click="cancel()">取消</button>
+						<button type="submit" class="btn btn-primary"
+							ng-click="chgLang('en')" ng-if="lang=='ch'">英文</button>
+						<button type="submit" class="btn btn-primary" ng-click="save();"
+							ng-if="lang=='en'">保存</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

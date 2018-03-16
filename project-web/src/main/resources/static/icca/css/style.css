@@ -1,0 +1,110 @@
+.iptop{position:fixed; top:0; left:0; right:0; background:#fff; z-index:9;}
+.iptop .iplogo{ float:left; width:107px;}
+.iptop .iplogo img{width:100%;}
+.iplang{ float:right;}
+.iplang a{ display:inline-block; margin-right:20px; line-height:47px;}
+.ipnav{text-align:center; padding:0 2%; clear:both;}
+.ipnav ul{display:inline-block;*display:inline; *zoom:1; }
+.ipnav ul li{ float:left;}
+.ipnav ul li a{ display:block; padding:5px 8px; color:#999;}
+.ipnav ul li a.active{ color:#000;}
+.ipboxg{ position:absolute; bottom:0; left:0; right:0; top:80px; overflow:hidden; background:url(../images/upload/cover01.jpg); background-size: cover;}
+.ipboxg img{height:100%;}
+
+.ipcont{ padding:80px 2% 0 2%;}
+.ipnew{ }
+.ipnew h4,.ipnewinfo h4,.ipworks h4,.ipworksdeta h4{ font-size:14px; color:#000; font-weight:bold;}
+.ipnew ul li{ padding:10px 0;}
+.ipnew ul li span,.ipnew ul li cite,.ipnewinfo span{ display:block; line-height:30px;}
+.ipnew ul li cite img,.ipnewinfo img{width:100%;}
+.ipnewinfo p{ line-height:22px; font-size:14px;}
+.ipworks{}
+.ipworks h4,.ipworksdeta h4{ font-size:16px; padding:5px 0;}
+.ipworks ul li{ position:relative; padding:5px 0;}
+.ipworks ul li img{ width:120px;}
+.ipworks ul li span{ display:block; position:absolute; left:130px; top:30px;}
+.ipworksdeta{ padding:0 20px 40px 20px;}
+.ipworksdeta img{width:100%; display:block; padding:5px 0;}
+.ipworkstit{ position:fixed; bottom:0; left:0; right:0; height:30px; background:#fff;}
+.ipworkstit a{ display:inline-block; padding:0 10px; line-height:30px; font-size:14px; color:#000;}
+.ipinfo{ position:fixed; top:0; left:0; right:0; bottom:0; z-index:9; background:#fff; overflow:auto; display:none;}
+.ipinfo h4{ background:#000; color:#fff; font-size:16px; line-height:30px; padding:0 10px; position:relative;}
+.ipinfo h4 span{ position:absolute; top:-2px; right:10px; font-size:24px;}
+.ipinfo h5{ padding:5px; font-size:14px;}
+.ipinfo p,.ipinfo ul{ line-height:20px; padding:5px 10px;}
+.ipvideobg{ position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5);}
+.ipvideo{ width:80%; position:fixed; left:10%; right:10%; top:50%;  margin:-72px 0 0 0;}
+.ipvideo h4{ position:relative;}
+.ipvideo h4 span{ display:block; width:20px; height:20px; background:#fff; position:absolute; top:0; right:-20px; color:#000; font-size:24px; line-height:20px;}
+
+.ipbooks{ padding-bottom:20px;}
+.ipbooks .ipbookinfo{ padding:5px 2%;}
+.ipbooks .ipbookinfo h4{ font-size:16px; color:#000; padding:5px;}
+.ipbooks .ipbookinfo p{ font-size:12px; line-height:22px;}
+.ipbooks .ipbookinfo p a{ display:inline-block; margin-right:10px;}
+
+.ipoffice{ padding:10px 2%;}
+.ipoffice img{width:100%; padding:20px 0;}
+.ipoffice p{ font-size:14px; line-height:22px; padding:5px 0;}
+
+.iptab li{ float:left;}
+.iptab li a{ padding:5px 10px; font-size:14px; color:#000; font-weight:bold;}
+.taglist{ padding:10px;}
+.taglist ul li{ position:relative; padding:5px 0 5px 80px;}
+.taglist ul li h4{ position:absolute; top:8px; left:0; font-size:14px; color:#000; font-weight:bold;}
+.taglist ul li p{ font-size:14px; line-height:22px;}
+
+.ipwork{ padding:10px 2%;}
+.ipwork ul li{ padding:10px 0;}
+.ipwork h4,.ipwork h5,.ipwork h6{ font-weight:bold; font-size:14px;}
+.ipwork h5{ color:#999;}
+.ipwork h6{ padding:0 0 5px 0;}
+.ipworkinfo{ padding:5px 0; line-height:22px; display:none;}
+
+#elevator_item { width: 50px; height: 40px; position: fixed; right: 10px; bottom: 15px; -webkit-transition: opacity .4s ease-in-out; -moz-transition: opacity .4s ease-in-out; -o-transition: opacity .4s ease-in-out; opacity: 1; z-index: 100020; display: none; }
+
+#elevator { display: block; width: 50px; height: 40px; background: url(../images/icon_top.png) center center no-repeat #444; background-color: rgba(0,0,0,.6); border-radius: 2px; box-shadow: 0 1px 3px rgba(0,0,0,.2); cursor: pointer; margin-bottom: 10px}
+#elevator:hover {background-color: rgba(0,0,0,.7)}
+#elevator:active {background-color: rgba(0,0,0,.75)}
+
+.ccanav{ position:fixed; top:0px; left:0px; bottom:0px; width:110px; background:rgba(225,225,225,0.3);}
+.innav{ background:none;}
+.logo{ padding-top:10px; background:none;}
+.logo a{ display:block; height:40px; background:url(../images/logo.png) no-repeat 20px 0px; background-size:auto 100%;}
+.ccanav ul li a{ display:block; padding:5px 0 5px 10px; position:relative; font-size:14px;}
+.ccanav ul li ul{ padding-left:20px; display:none;}
+.ccanav ul li ul li{}
+..ccanav ul li:hover ul{ display:block;}
+.ccanav ul li a:before{position:absolute; top:0; left:0; bottom:0; background:#000; width:0px; content:''; transition:.5s;z-index:-1; }
+.ccanav ul li a:hover::before{ width:100%;}
+.ccanav ul li a:hover{ color:#fff;}
+.ccanav ul li a.active{background:#000; color:#fff;}
+.tabnav{width:150px;}
+.tabnav ul li ul{ display:block;}
+
+.ccacont{ padding:10px 20px 20px 120px;}
+.lyccacont{padding:10px 20px 20px 160px;}
+.ccacontlist{ position:relative;}
+.ccacontlist ul li{width:430px; background:#fff; box-shadow: 0px 0px 50px #fff; float:left; margin:50px 0 0 30px;}
+.ccacontlist ul li h4{ position:relative; padding:10px; font-size:14px;}
+.ccacontlist ul li h4 span{ position:absolute; right:5px; font-size:24px; top:0; z-index:1;}
+.ccacontlist ul li cite{ display:block; width:100%;}
+.ccacontlist ul li cite img{ width:100%;}
+.ccacontlist ul li a:hover{ text-decoration:underline;}
+
+.travel {width:100%;}
+.travel cite{ display:block;}
+.travel cite img{width:100%;}
+.applytravel h4{ font-weight:bold; font-size:14px;}
+.contact p{padding:5px 0;}
+
+.swiper-slide img{ max-width:100%; height:100%;}
+@media only screen and (min-width: 500px) {
+ 
+}
+
+@media only screen and (max-width: 320px) {
+ .ipnav ul li a{ display:block; padding:5px 5px;}
+}
+
+

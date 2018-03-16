@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header(${data.title})"></head>
+
+<body>
+	<div class="ccanav innav">
+    	<div th:include="common/slicenav :: slicenav('news', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+    	<div class="newsorder">
+        	<span th:text="${#dates.format(data.publish, 'yyyy-MM-dd')}"></span>
+            <h4 th:text="${data.title}"></h4>
+        	<div th:utext ="${data.desc}"></div>
+        </div>
+        
+    </div>
+
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+</div>
+  
+</div>
+
+</body>
+</html>

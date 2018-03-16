@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('新闻')"></head>
+<body>
+	<div class="ccanav innav">
+		<div th:include="common/slicenav :: slicenav('news', ${lang})"></div>
+	</div>
+	<div class="ccacont">
+		<div class="newtlist">
+			<ul>
+				<li th:each="data:${dataList}"><a  th:href="@{${lang}!=''?'/'+${lang}+'/news_detail/'+${data.id}+'.html':'/news_detail/'+${data.id}+'.html'}"> <span
+						th:text="${#dates.format(data.publish, 'yyyy-MM-dd')}"></span>
+						<h4 th:text="${data.title}"></h4>
+						<p th:text="${data.summary}"></p> <cite><img
+							th:src="${data.cover}"></cite>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="elevator_item">
+		<a id="elevator" onclick="return false;" title="回到顶部"></a>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('旅游基金')"></head>
+
+<body>
+<div class="ccamain">
+	<div class="ccanav tabnav">
+    	<div class="logo"><a  th:href="@{'/'+${lang}}"></a></div>
+        <ul>
+        	<li th:each="data : ${dataList}">
+        		<a th:class="${data.id}==${targetData.id}?active" th:href="@{${lang}!=''?'/'+${lang}+'/travelFund/'+${data.id}+'.html':'/travelFund/'+${data.id}+'.html'}" th:text="${data.title}"></a>
+        		<ul th:if="${data.subdataResult.size()} gt 0">
+                	<li th:each="subdata : ${data.subdataResult}">
+                		<a th:class="${subdata.id}==${targetData.id}?active" th:href="@{${lang}!=''?'/'+${lang}+'/travelFund/'+${subdata.id}+'.html':'/travelFund/'+${subdata.id}+'.html'}" th:text="${subdata.title}"></a>
+                	</li>
+                </ul>
+        	</li>
+        </ul>
+        <div style="text-align: center;margin-top: 20px;">
+		<a onclick="changeLang(this)" th:attr="data-lang=${lang}" th:text="${lang}==''?'中文':(${lang}=='en'?'中文':'English')"></a>
+	</div>
+	<script>
+	window.changeLang = function(obj){
+		debugger;
+		var locUrl = window.location.href;
+		var host = window.location.host;
+		var lang = $(obj).attr("data-lang");
+		if("en" == lang) {
+			locUrl = locUrl.replace("en", "zh");
+		}else {
+			locUrl = locUrl.replace("/zh", "");
+			var locUrlPrex = locUrl.substring(0, locUrl.indexOf(host) + host.length);
+			var locUrlSuff = locUrl.substring(locUrl.indexOf(host)+host.length, locUrl.length);
+			locUrl = locUrlPrex + "/" + "en" + locUrlSuff;
+		}
+		window.location.href = locUrl;
+	}
+	</script>
+    </div>
+    <div class="ccacont lyccacont">
+    	<div class="travel ">
+        	<div th:utext="${targetData.desc}"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

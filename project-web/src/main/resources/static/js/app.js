@@ -1,11 +1,18 @@
-var materialAdmin = angular.module('materialAdmin', [
+'use strict';
+
+
+angular.module('app', [
     'ngAnimate',
+    'ngCookies',
     'ngResource',
+    'ngSanitize',
+    'ngTouch',
+    'ngStorage',
     'ui.router',
     'ui.bootstrap',
-    'angular-loading-bar',
+    'ui.load',
+    'ui.jq',
+    'ui.validate',
     'oc.lazyLoad',
-    'nouislider',
-    'ngTable'
-])
- 
+    'pascalprecht.translate'
+]);

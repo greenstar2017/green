@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('工作')"></head>
+
+<body>
+	<div class="ccanav innav">
+    	<div th:include="common/slicenav :: slicenav('job', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+    	<div class="jobs">
+			<ul>
+            	<li th:each="data : ${dataResult}"><cite th:text="${data.name}"><span th:text="${data.position}"></span></cite>
+                		<div class="joblist" th:utext="${data.desc}">
+                        </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+  </div>
+  
+</body>
+</html>

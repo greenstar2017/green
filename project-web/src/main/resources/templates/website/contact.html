@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('联系我们')"></head>
+
+<body>
+	<div class="ccanav innav">
+    	<div th:include="common/slicenav :: slicenav('contact', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+    	<div class="contactus">
+			<ul>
+            	<li th:each="data : ${dataResult}"><cite><img th:src="${data.logo}"></cite>
+                		<div class="contactlist">
+                        	<h4 th:text="${data.name}"></h4>
+                            <div th:utext="${data.desc}"></div>
+                        </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+  </div>
+  
+</div>
+
+</body>
+</html>

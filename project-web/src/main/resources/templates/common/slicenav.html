@@ -1,0 +1,69 @@
+<div th:fragment="slicenav(navActive, lang)">
+	<div class="logo">
+		<a th:href="@{'/'+${lang}}"></a>
+	</div>
+	<ul>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/news.html':'/news.html'}"
+			th:class="${navActive} == 'news'? 'active'" th:text="${lang}==''?'news':(${lang}=='en'?'news':'新闻')"></a></li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/travelFund.html':'/travelFund.html'}"
+			th:class="${navActive} == 'travelFund'? 'active'" th:text="${lang}==''?'fellowship':(${lang}=='en'?'fellowship':'旅游基金')"></a></li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/works.html':'/works.html'}"
+			th:class="${navActive} == 'works'? 'active'" th:text="${lang}==''?'works':(${lang}=='en'?'works':'作品')"></a>
+			<ul th:style="${navActive} == 'works'?'display:block;'">
+				<li><a
+					th:href="@{${lang}!=''?'/'+${lang}+'/works/state.html':'/works/state.html'}" th:text="${lang}==''?'status':(${lang}=='en'?'status':'状态')"></a></li>
+				<li><a
+					th:href="@{${lang}!=''?'/'+${lang}+'/works/position.html':'/works/position.html'}" th:text="${lang}==''?'location':(${lang}=='en'?'location':'位置')"></a></li>
+				<li><a
+					th:href="@{${lang}!=''?'/'+${lang}+'/works/type.html':'/works/type.html'}" th:text="${lang}==''?'typology':(${lang}=='en'?'typology':'类型')"></a></li>
+			</ul>
+		</li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/art.html':'/art.html'}"
+			th:class="${navActive} == 'art'? 'active'" th:text="${lang}==''?'art':(${lang}=='en'?'art':'艺术')">艺术</a></li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/book.html':'/book.html'}"
+			th:class="${navActive} == 'book'? 'active'" th:text="${lang}==''?'books':(${lang}=='en'?'books':'书籍')"></a></li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/officeInstroduce.html':'/officeInstroduce.html'}"
+			th:class="${navActive} == 'officeInstroduce'? 'active'" th:text="${lang}==''?'office':(${lang}=='en'?'office':'办公室')"></a>
+			<ul th:style="${navActive} == 'officeInstroduce'?'display:block;'">
+				<li><a
+					th:href="@{${lang}!=''?'/'+${lang}+'/officeInstroduce.html':'/officeInstroduce.html'}" th:text="${lang}==''?'info':(${lang}=='en'?'info':'简介')"></a></li>
+				<li><a
+					th:href="@{${lang}!=''?'/'+${lang}+'/officeTeam.html':'/officeTeam.html'}" th:text="${lang}==''?'people':(${lang}=='en'?'people':'团队')"></a></li>
+			</ul></li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/job.html':'/job.html'}"
+			th:class="${navActive} == 'job'? 'active'" th:text="${lang}==''?'jobs':(${lang}=='en'?'jobs':'工作')"></a></li>
+		<li><a
+			th:href="@{${lang}!=''?'/'+${lang}+'/contact.html':'/contact.html'}"
+			th:class="${navActive} == 'contact'? 'active'" th:text="${lang}==''?'contact':(${lang}=='en'?'contact':'联系我们')"></a></li>
+			
+	</ul>
+	<div style="text-align: center;margin-top: 20px;">
+		<a onclick="changeLang(this)" th:attr="data-lang=${lang}" th:text="${lang}==''?'中文':(${lang}=='en'?'中文':'English')"></a>
+	</div>
+	<script>
+	window.changeLang = function(obj){
+		var locUrl = window.location.href;
+		var host = window.location.host;
+		var lang = $(obj).attr("data-lang");
+		if("en" == lang) {
+			locUrl = locUrl.replace("/en", "");
+			var locUrlPrex = locUrl.substring(0, locUrl.indexOf(host) + host.length);
+			var locUrlSuff = locUrl.substring(locUrl.indexOf(host)+host.length, locUrl.length);
+			locUrl = locUrlPrex + "/" + "zh" + locUrlSuff;
+		}else {
+			locUrl = locUrl.replace("/zh", "");
+			var locUrlPrex = locUrl.substring(0, locUrl.indexOf(host) + host.length);
+			var locUrlSuff = locUrl.substring(locUrl.indexOf(host)+host.length, locUrl.length);
+			locUrl = locUrlPrex + "/" + "en" + locUrlSuff;
+		}
+		window.location.href = locUrl;
+	}
+	</script>
+</div>

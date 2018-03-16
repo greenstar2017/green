@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('作品')"></head>
+
+<body>
+<div class="ccamain">
+	<div class="ccanav">
+    	<div th:include="common/slicenav :: slicenav('works', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+    	<div class="works">
+        	<div class="workslist" th:each="data : ${resultMap}">
+            	<h4 th:text="${data.key}"></h4>
+                <ul>
+       				<li th:each="subdata : ${data.value}"><a th:href="@{${lang}!=''?'/'+${lang}+'/works_detail/'+${subdata.id}+'.html':'/works_detail/'+${subdata.id}+'.html'}" th:utext="'-&nbsp;' + ${subdata.title}"></a>
+                            <div class="icon"><img th:src="${subdata.logo}"></div>
+                     </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="common/footer :: footer"></div>
+</body>
+</html>

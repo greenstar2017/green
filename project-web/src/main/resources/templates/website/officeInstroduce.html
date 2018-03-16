@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('办公室简介')"></head>
+<!-- <script type="text/javascript" src="/icca/js/tabulous.js"></script>
+<script>
+$(document).ready(function(){
+$(function() {
+    $('.tabs').tabulous({
+        effect: 'flip'
+    });
+});
+setTimeout(function(){
+$(".tabs").find("ul>li>a:first").click();
+}, 500);
+})
+</script> -->
+<style>
+.thide{display:block;}
+</style>
+<script>
+$(document).ready(function(){
+window.chgTab = function(tabIndex) {
+	$("div[id*=tab]").hide();
+	$("div[id=tab"+tabIndex+"]").show();
+	
+	$(".tabs").find("ul>li>a").removeClass("tabulous_active");
+	$(".tabs").find("ul>li>a").eq(tabIndex-1).addClass("tabulous_active");
+}
+})
+</script>
+
+<body>
+	<div class="ccanav innav">
+    	<div th:include="common/slicenav :: slicenav('officeInstroduce', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+    	<div class="office">
+        	<div th:utext ="${data.officeIntroduce0.desc}"></div>
+            <div class="tabs">
+                    <ul style="margin-bottom:20px;">
+                        <li><a href="javascirpt:;"  onclick="chgTab(1)" title="" class="tabulous_active" th:text="${lang}==''?'Exhibitions':(${lang}=='en'?'Exhibitions':'展览')"></a></li>
+                        <li><a href="javascirpt:;" onclick="chgTab(2)" title="" th:text="${lang}==''?'Lectures':(${lang}=='en'?'Lectures':'讲座')"></a></li>
+                        <li><a href="javascirpt:;" onclick="chgTab(3)" title="" th:text="${lang}==''?'Awards':(${lang}=='en'?'Awards':'奖项及荣誉')"></a></li>
+                        <li><a href="javascirpt:;" onclick="chgTab(4)" title="" th:text="${lang}==''?'Publication':(${lang}=='en'?'Publication':'出版')"></a></li>
+                    </ul>
+					
+                    <div>
+                        <div id="tab1" th:utext ="${data.officeIntroduce1.desc}">
+                        </div>
+                        
+                        <div id="tab2" style="display:none;" th:utext ="${data.officeIntroduce2.desc}">
+                        </div>
+                        
+                        <div id="tab3" style="display:none;" th:utext ="${data.officeIntroduce3.desc}">
+                        </div>
+                        
+                        <div id="tab4" style="display:none;" th:utext ="${data.officeIntroduce4.desc}">
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+  </div>
+  
+</div>
+
+</body>
+</html>

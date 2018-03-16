@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head th:include="common/header-wap :: header('办公室')"></head>
+<style>
+.tagContent {
+	 display: none;  clear:both;
+}
+.taglist div.selectTag {
+	display: block
+}
+</style>
+
+<body>
+<div th:include="common/slicenav-wap :: slicenav('officeInstroduce', ${lang})"></div>
+
+<div class="ipcont">
+    <div class="ipoffice">
+    	<div th:utext ="${data.officeIntroduce0.desc}"></div>
+    </div>
+    <div class="ipoffitab">
+    	<ul id="tags" class="iptab clearfix">
+            <li class="selectTag"><a onClick="selectTag('tagContent0',this)"  href="javascript:void(0)" th:text="${lang}==''?'Exhibitions':(${lang}=='en'?'Exhibitions':'展览')"></a> </li>
+            <li><a onClick="selectTag('tagContent1',this)" href="javascript:void(0)" th:text="${lang}==''?'Lectures':(${lang}=='en'?'Lectures':'讲座')"></a> </li>
+            <li><a onClick="selectTag('tagContent2',this)"  href="javascript:void(0)" th:text="${lang}==''?'Awards':(${lang}=='en'?'Awards':'奖项及荣誉')"></a> </li>
+            <li><a onClick="selectTag('tagContent3',this)" href="javascript:void(0)" th:text="${lang}==''?'Publication':(${lang}=='en'?'Publication':'出版')"></a> </li>
+        </ul>
+        <div class="taglist">
+            <div class="tagContent selectTag" id="tagContent0"  th:utext ="${data.officeIntroduce1.desc}">
+            </div>
+            <div class="tagContent" id="tagContent1" th:utext ="${data.officeIntroduce2.desc}">
+            </div>
+            <div class="tagContent" id="tagContent2" th:utext ="${data.officeIntroduce3.desc}">
+            </div>
+            <div class="tagContent" id="tagContent3" th:utext ="${data.officeIntroduce4.desc}">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+  </div>
+<SCRIPT type=text/javascript>
+function selectTag(showContent,selfObj){
+	// 操作标签
+	var tag = document.getElementById("tags").getElementsByTagName("li");
+	var taglength = tag.length;
+	for(i=0; i<taglength; i++){
+		tag[i].className = "";
+	}
+	selfObj.parentNode.className = "selectTag";
+	// 操作内容
+	for(i=0; j=document.getElementById("tagContent"+i); i++){
+		j.style.display = "none";
+	}
+	document.getElementById(showContent).style.display = "block";
+	
+	
+}
+</SCRIPT>
+</body>
+</html>

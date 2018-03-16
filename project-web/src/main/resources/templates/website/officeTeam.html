@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head th:include="common/header :: header('办公室团队')"></head>
+
+<body>
+	<div class="ccanav innav">
+        <div th:include="common/slicenav :: slicenav('officeInstroduce', ${lang})"></div>
+    </div>
+    <div class="ccacont">
+    	<div class="team">
+			<ul>
+            	<li th:each="data : ${teamDataResult}">
+                	<cite><img th:src="${data.logo}"></cite>
+                    <div class="teaminfo">
+                    	<h4 th:text="${data.name}"></h4>
+                        <h4 th:text="${data.position}"></h4>
+                        <p th:utext="${data.desc}">
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="teamore">
+            	<h4 th:text="${lang}==''?'Expand to see all staff +':(${lang}=='en'?'Expand to see all staff +':'展开显示全体员工 +')"></h4>
+                <h5 th:text="${lang}==''?'Collapse -':(${lang}=='en'?'Collapse -':'收起 -')"></h5>
+                <table border="0" cellspacing="0" cellpadding="0" class="moreinfo">
+                  <tr>
+                    <td th:text="${lang}==''?'Name':(${lang}=='en'?'Name':'姓名')"></td>
+                    <td th:text="${lang}==''?'Position':(${lang}=='en'?'Position':'职位')"></td>
+                  </tr>
+                  <tr th:each="data : ${memberDataResult}">
+                    <td th:text="${data.name}"></td>
+                    <td th:text="${data.position}"></td>
+                  </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+<div id="elevator_item">
+        <a id="elevator" onclick="return false;" title="回到顶部"></a>
+  </div>
+  
+</div>
+<script>
+jQuery(document).on("click",".teamore h4",function(){
+	$(".moreinfo").fadeIn();
+	$(this).hide();
+	$(this).parent().find('h5').show();
+})
+jQuery(document).on("click",".teamore h5",function(){
+	$(".moreinfo").fadeOut();
+	$(this).hide();
+	$(this).parent().find('h4').show();
+})
+</script>
+
+</body>
+</html>

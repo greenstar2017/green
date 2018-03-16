@@ -1,0 +1,52 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">部门管理</h1>
+</div>
+<div class="wrapper-md" ng-controller="ApartmentMngCtrl">
+  <div class="panel panel-default">
+    <div class="row wrapper">
+      <div class="col-sm-7">
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <input type="text" class="input-sm form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">搜索</button>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-2">
+      	<div class="btn-group pull-right">
+		     <a type="button" class="btn btn-sm btn-success glyphicon glyphicon-plus" ui-sref="app.hyshi.apartmentedit">添加</a>
+		     <a type="button" class="btn btn-sm btn-danger glyphicon glyphicon-minus">删除</a>
+	     </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <th style="width:20px;">
+              <label class="i-checks m-b-none">
+                <input type="checkbox"><i></i>
+              </label>
+            </th>
+            <th>部门名称</th>
+            <th>部门编号</th>
+            <th style="width:60px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in dataList">
+            <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
+            <td>{{data.name}}</td>
+            <td>{{data.code}}</td>
+            <td>
+              <a href class="active" ng-click="goEdit(data)"><i class="fa fa-warning text-warning text-active"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <tm-pagination conf="paginationConf"></tm-pagination>
+</div>
