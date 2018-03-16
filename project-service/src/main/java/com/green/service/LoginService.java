@@ -6,7 +6,8 @@ package com.green.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.green.response.RestObject;
+import com.green.dto.LoginForm;
+import com.green.entity.UserAccount;
 
 /**
  * @author yuanhualiang
@@ -17,8 +18,8 @@ public interface LoginService {
 	/**
 	 * 登录
 	 */
-	String doLogin(HttpServletRequest request, HttpServletResponse response,
-			long memberId);
+	UserAccount doLogin(HttpServletRequest request, HttpServletResponse response,
+			LoginForm loginForm);
 
 	/**
 	 * @param userId
