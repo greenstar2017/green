@@ -23,7 +23,7 @@ public class UserAccountForm {
 	 * 账号
 	 */
 	@NotBlank(message = "账号不能为空")
-	@Length(max = 30, message = "类型长度不超过30个字符")
+	@Length(max = 30, message = "账号长度不超过30个字符")
 	private String account;
 	/**
 	 * 密码

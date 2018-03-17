@@ -7,9 +7,9 @@ package com.green.constants;
 /**
  * @author yuanhualiang
  *
- * 借贷人状态
+ * 账号状态
  */
-public enum AccountStatusEnum {
+public enum LenderStatusEnum {
 
 	/**
 	 * 有效
@@ -27,7 +27,7 @@ public enum AccountStatusEnum {
 
 	private String typeDes;
 
-	AccountStatusEnum(String typeName, int key, String typeDes) {
+	LenderStatusEnum(String typeName, int key, String typeDes) {
 		this.typeName = typeName;
 		this.key = key;
 		this.typeDes = typeDes;
