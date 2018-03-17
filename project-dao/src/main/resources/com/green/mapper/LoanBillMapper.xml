@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.mapper.LoanBillMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.green.entity.LoanBill">
+		<id column="id" property="id" />
+		<result column="lender_name" property="lenderName" />
+		<result column="lender_identity" property="lenderIdentity" />
+		<result column="loan_way" property="loanWay" />
+		<result column="loan_limit" property="loanLimit" />
+		<result column="income_limie" property="incomeLimie" />
+		<result column="interest" property="interest" />
+		<result column="period" property="period" />
+		<result column="provide_name" property="provideName" />
+		<result column="provide_id" property="provideId" />
+		<result column="salesman_name" property="salesmanName" />
+		<result column="salesman_id" property="salesmanId" />
+		<result column="callman_name" property="callmanName" />
+		<result column="callman_id" property="callmanId" />
+		<result column="agency_name" property="agencyName" />
+		<result column="rebate_point" property="rebatePoint" />
+		<result column="rebate_point_way" property="rebatePointWay" />
+		<result column="create_time" property="createTime" />
+		<result column="expire_time" property="expireTime" />
+		<result column="payback_time" property="paybackTime" />
+		<result column="business_type" property="businessType" />
+		<result column="income_amount" property="incomeAmount" />
+		<result column="income_platform" property="incomePlatform" />
+		<result column="loan_status" property="loanStatus" />
+		<result column="reject_reason" property="rejectReason" />
+		<result column="modify_time" property="modifyTime" />
+		<result column="modify_name" property="modifyName" />
+		<result column="modify_id" property="modifyId" />
+		<result column="del_flag" property="delFlag" />
+	</resultMap>
+
+</mapper>
