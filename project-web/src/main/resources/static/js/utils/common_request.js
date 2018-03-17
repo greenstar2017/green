@@ -33,6 +33,44 @@ CommonRequest.AngularBaseCtrl = function ( $scope,$http,toaster ) {
 				'消息',
 				msg);
 	};
+	
+	/**
+	 * 确认弹框
+	 */
+	$scope.commonConfirm = function(title, delYesFun, noFun) {
+		var inx = layer.confirm(title, {
+            btn: ['确定','取消'], //按钮
+            scrollbar: false,
+            shadeClose:true
+        }, delYes);
+        function delYes(){
+            layer.close(inx);
+            if(delYesFun) {
+            	delYesFun();
+            }
+        }
+	}
+	
+	/**
+	 * 分页参数
+	 */
+	$scope.commonPaginationConf = function() {
+		$scope.paginationConf = {
+				currentPage: $scope.params['page'],
+				totalItems: 0,
+				itemsPerPage: $scope.params['page.size'],
+				pagesLength: $scope.params['page.size'],
+				perPageOptions: [10, 15, 20, 25, 30, 50],
+				onChange: function(){
+					if(($scope.paginationConf.currentPage != 0 && $scope.params['page'] != $scope.paginationConf.currentPage) || 
+							$scope.params['page.size'] != $scope.paginationConf.itemsPerPage) {//防止初始化时被调用
+						$scope.params['page'] = $scope.paginationConf.currentPage;
+						$scope.params['page.size'] = $scope.paginationConf.itemsPerPage;
+						$scope.queryResult();
+					}
+				}
+		};
+	}
   
   $scope.postRequest = function(options, callback, failcallback){
 		$http({
