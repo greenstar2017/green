@@ -18,7 +18,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class MybatisPlusUtils {
 	
 	//创建的表名
-	private static String table = "lender";
+	private static String table = "loan_bill";
 
 	public static void main(String[] args) {
 		String[][] models = new String[][] {
