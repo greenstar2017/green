@@ -38,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        BusinessAssert.isTrue(LoginUtils.getLoginId(request) > 0 , CommonError.LOGIN_EXPIRE);
+        BusinessAssert.isTrue(LoginUtils.getLoginId(request) > 0 , CommonError.LOGIN_EXPIRE.newMessage(CommonError.LOGIN_EXPIRE.getErrorMessage() + "[errorCode:" + CommonError.LOGIN_EXPIRE.getErrorCode() + "]"));
         return true;
     }
 

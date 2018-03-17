@@ -9,8 +9,8 @@ public class BusinessException extends RuntimeException {
 
 	private static final long serialVersionUID = 3190256515490831676L;
 	private String message;
+	private String errorCode;
 	private Object params[];
-	private ErrorEntity errorEntity;
 
 	public BusinessException() {
 	}
@@ -19,8 +19,8 @@ public class BusinessException extends RuntimeException {
 		return message;
 	}
 
-	public ErrorEntity getErrorEntity() {
-		return errorEntity;
+	public String getErrorCode() {
+		return errorCode;
 	}
 
 	public Object[] getParams() {
@@ -31,7 +31,7 @@ public class BusinessException extends RuntimeException {
 		BusinessException businessException = new BusinessException();
 		if (errorEntity != null) {
 			businessException.message = errorEntity.getErrorMessage();
-			businessException.errorEntity = errorEntity;
+			businessException.errorCode = errorEntity.getErrorCode();
 		}
 		return businessException;
 	}

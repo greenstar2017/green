@@ -31,6 +31,10 @@ public abstract class ErrorEntity implements Cloneable {
 		return errorMessage;
 	}
 
+	public String getErrorCode() {
+		return errorCode;
+	}
+
 	public ErrorEntity newMessage(String errorMessage) {
 		try {
 			ErrorEntity errorEntity = (ErrorEntity) super.clone();

@@ -85,11 +85,20 @@ public class GlobalBasicErrorController extends AbstractErrorController {
 	@RequestMapping(produces = "text/html")
 	public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
 		HttpStatus status = getStatus(request);
+		Map<String, Object> body = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.ALL));
+		Object messageObj = body.get("message");
+		String view = "error";
+		if(null != messageObj) {
+			String message = messageObj.toString();
+			if(message.contains("errorCode:004")) {//登录状态已过期，请重新登录
+				view = "login";
+			}
+		}
 		Map<String, Object> model = Collections
 				.unmodifiableMap(getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML)));
 		response.setStatus(status.value());
 		ModelAndView modelAndView = resolveErrorView(request, response, status, model);
-		return modelAndView == null ? new ModelAndView("error", model) : modelAndView;
+		return modelAndView == null ? new ModelAndView(view, model) : modelAndView;
 	}
 
 	/**
@@ -111,7 +120,9 @@ public class GlobalBasicErrorController extends AbstractErrorController {
 			LOGGER.info(key + ":" + body.get(key));
 		}
 		LOGGER.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> global catch error params end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		
+		if(message.contains("errorCode:004")) {//登录状态已过期，请重新登录
+			return RestObject.newTimeout("登录状态已过期，请重新登录");
+		}
 		return RestObject.newError(message, body);
 	}
 
