@@ -1,7 +1,10 @@
 /**
  * 
  */
-package com.green.action.test;
+package com.green.action;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.green.annotations.NoRequireLogin;
 import com.green.annotations.UserId;
 import com.green.auth.utils.LoginUtils;
+import com.green.common.EnumTool;
+import com.green.constants.AccountTypeEnum;
 import com.green.dto.LoginForm;
 import com.green.entity.UserAccount;
 import com.green.response.RestObject;
@@ -50,9 +55,12 @@ public class LoginController {
 	 * @param model
 	 * @return
 	 */
+	@NoRequireLogin
 	@RequestMapping(value = "/console", method = RequestMethod.GET)
-	public String console(HttpServletRequest request, Model model) {
-
+	public String console(HttpServletRequest request, Model model, @UserId long userId) {
+		if(userId == -1) {
+			return "redirect:login.html";
+		}
 		return "consoleIndex";
 	}
 
@@ -71,8 +79,13 @@ public class LoginController {
 			HttpServletResponse response, LoginForm loginForm) {
 		UserAccount userAccount = loginService.doLogin(request, response,
 				loginForm);
+		Map<String, Object> resultData = new HashMap<>();
+		Map<String, Object> baseData = new HashMap<>();
+		resultData.put("baseData", baseData);
 		if (null != userAccount) {
-			return RestObject.newOk("登录成功", userAccount);
+			resultData.put("userAccount", userAccount);
+			baseData.put("accountTypeEnum", EnumTool.getEnumPropertyMap(AccountTypeEnum.class));
+			return RestObject.newOk("登录成功", resultData);
 		} else {
 			return RestObject.newError("账号或者密码不正确");
 		}
@@ -86,6 +99,7 @@ public class LoginController {
 	 * @param userId
 	 * @return
 	 */
+	@NoRequireLogin
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request,
 			HttpServletResponse response, @UserId long userId) {

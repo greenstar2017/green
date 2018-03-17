@@ -14,8 +14,7 @@ angular.module('app')
   )
   .config(
     [          '$stateProvider', '$urlRouterProvider',
-      function ( $stateProvider,   $urlRouterProvider) {
-          
+      function (  $stateProvider,   $urlRouterProvider) {
           $urlRouterProvider
               .otherwise('/app/receiptMng');
           var provider = $stateProvider
@@ -75,6 +74,22 @@ angular.module('app')
                                    }
                                );
                            }]
+                  }
+              }).state('app.systemAccount_edit', {
+                  url: '/systemAccount_edit',
+                  templateUrl: 'pages/systemAccount_edit.html',
+                  params:{'id':''},
+                  resolve: {
+                  	deps: ['$ocLazyLoad',
+                         function( $ocLazyLoad){
+                           return $ocLazyLoad.load('toaster').then(
+                               function(){
+                                  return $ocLazyLoad.load([
+									'pages/js/systemAccount_edit.js?v='+new Date().getTime()
+								]);
+                               }
+                           );
+                       }]
                   }
               })
               

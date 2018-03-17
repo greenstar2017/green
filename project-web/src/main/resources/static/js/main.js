@@ -35,11 +35,10 @@ angular.module('app')
           asideFolded: false,
           asideDock: false,
           container: false,
-          menuList:[], 
-          loginUser: {}
+          loginUser: {}, 
+          baseData: {}
         },
       }
-
       // save settings to local storage
       if ( angular.isDefined($localStorage.settings) ) {
         $scope.app.settings = $localStorage.settings;
@@ -83,8 +82,9 @@ angular.module('app')
   			headers: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8; ajax' }
   		}).success( function (resp) {
   			if(resp.state == 0) {
-  				$scope.app.settings.loginUser = resp.data;
-  				window.location.href = "/console"
+  				$scope.app.settings.loginUser = resp.data.userAccount;
+  				$scope.app.settings.baseData = resp.data.baseData;
+  				window.location.href = "/console#/app/receiptMng"
   			}else {
   				$scope.errorMsg = resp.message;
   			}
