@@ -21,6 +21,10 @@ import com.green.annotations.UserId;
 import com.green.auth.utils.LoginUtils;
 import com.green.common.EnumTool;
 import com.green.constants.AccountTypeEnum;
+import com.green.constants.LoanBusinessTypeEnum;
+import com.green.constants.LoanRebatePointWay;
+import com.green.constants.LoanStatusEnum;
+import com.green.constants.LoanWayEnum;
 import com.green.dto.LoginForm;
 import com.green.entity.UserAccount;
 import com.green.response.RestObject;
@@ -57,8 +61,9 @@ public class LoginController {
 	 */
 	@NoRequireLogin
 	@RequestMapping(value = "/console", method = RequestMethod.GET)
-	public String console(HttpServletRequest request, Model model, @UserId long userId) {
-		if(userId == -1) {
+	public String console(HttpServletRequest request, Model model,
+			@UserId long userId) {
+		if (userId == -1) {
 			return "redirect:login.html";
 		}
 		return "consoleIndex";
@@ -84,10 +89,46 @@ public class LoginController {
 		resultData.put("baseData", baseData);
 		if (null != userAccount) {
 			resultData.put("userAccount", userAccount);
-			baseData.put("accountTypeEnum", EnumTool.getEnumPropertyMap(AccountTypeEnum.class));
+			baseData.put("accountTypeEnum",
+					EnumTool.getEnumPropertyMap(AccountTypeEnum.class));
 			return RestObject.newOk("登录成功", resultData);
 		} else {
 			return RestObject.newError("账号或者密码不正确");
+		}
+	}
+
+	/**
+	 * 系统基础数据
+	 * 
+	 * @param request
+	 * @param response
+	 * @param userAccount
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/systemBaseData")
+	public RestObject systemBaseData(HttpServletRequest request,
+			HttpServletResponse response, UserAccount userAccount) {
+		Map<String, Object> resultData = new HashMap<>();
+		Map<String, Object> baseData = new HashMap<>();
+		resultData.put("baseData", baseData);
+		if (null != userAccount) {
+			resultData.put("userAccount", userAccount);
+			baseData.put("accountTypeEnum",
+					EnumTool.getEnumPropertyMap(AccountTypeEnum.class));
+			baseData.put("loanWayEnum",
+					EnumTool.getEnumPropertyMap(LoanWayEnum.class));
+			baseData.put("loanRebatePointWay",
+					EnumTool.getEnumPropertyMap(LoanRebatePointWay.class));
+			baseData.put("loanBusinessTypeEnum",
+					EnumTool.getEnumPropertyMap(LoanBusinessTypeEnum.class));
+			baseData.put("loanWayEnum",
+					EnumTool.getEnumPropertyMap(LoanWayEnum.class));
+			baseData.put("loanStatusEnum",
+					EnumTool.getEnumPropertyMap(LoanStatusEnum.class));
+			return RestObject.newOk("", resultData);
+		} else {
+			return RestObject.newError("系统错误");
 		}
 	}
 

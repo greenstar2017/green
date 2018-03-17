@@ -23,18 +23,34 @@ angular.module('app')
                   url: '/app',
                   templateUrl: 'tpl/app.html?v='+new Date().getTime()
               });
-          provider.state('app.receiptMng', {
-                  url: '/receiptMng',
-                  templateUrl: 'pages/receiptMng.html',
+          provider.state('app.loanBillMng', {
+                  url: '/loanBillMng',
+                  templateUrl: 'pages/loanBillMng.html',
                   resolve: {
                 	  deps: ['$ocLazyLoad',
                              function( $ocLazyLoad){
                                return $ocLazyLoad.load(['tm.pagination', 'toaster']).then(
                                    function(){
-                                      return $ocLazyLoad.load('pages/js/receiptMng.js?v='+new Date().getTime());
+                                      return $ocLazyLoad.load('pages/js/loanBillMng.js?v='+new Date().getTime());
                                    }
                                );
                            }]
+                  }
+              }).state('app.loanBill_edit', {
+                  url: '/loanBill_edit',
+                  templateUrl: 'pages/loanBill_edit.html',
+                  params:{'id':''},
+                  resolve: {
+                  	deps: ['$ocLazyLoad',
+                         function( $ocLazyLoad){
+                           return $ocLazyLoad.load('toaster').then(
+                               function(){
+                                  return $ocLazyLoad.load([
+									'pages/js/loanBill_edit.js?v='+new Date().getTime()
+								]);
+                               }
+                           );
+                       }]
                   }
               }).state('app.lenderMng', {
                   url: '/lenderMng',
@@ -49,15 +65,31 @@ angular.module('app')
                                );
                            }]
                   }
-              }).state('app.statisicMng', {
-                  url: '/statisicMng',
-                  templateUrl: 'pages/statisicMng.html',
+              }).state('app.lender_edit', {
+                  url: '/lender_edit',
+                  templateUrl: 'pages/lender_edit.html',
+                  params:{'id':''},
+                  resolve: {
+                  	deps: ['$ocLazyLoad',
+                         function( $ocLazyLoad){
+                           return $ocLazyLoad.load('toaster').then(
+                               function(){
+                                  return $ocLazyLoad.load([
+									'pages/js/lender_edit.js?v='+new Date().getTime()
+								]);
+                               }
+                           );
+                       }]
+                  }
+              }).state('app.loanStatisicMng', {
+                  url: '/loanStatisicMng',
+                  templateUrl: 'pages/loanStatisicMng.html',
                   resolve: {
                 	  deps: ['$ocLazyLoad',
                              function( $ocLazyLoad){
                                return $ocLazyLoad.load(['tm.pagination', 'toaster']).then(
                                    function(){
-                                      return $ocLazyLoad.load('pages/js/statisicMng.js?v='+new Date().getTime());
+                                      return $ocLazyLoad.load('pages/js/loanStatisicMng.js?v='+new Date().getTime());
                                    }
                                );
                            }]

@@ -3,16 +3,16 @@
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
   </li>
   
-  <li ng-class="{active:$state.includes('app.receiptMng')}">
-    <a ui-sref="app.receiptMng">
-      <i class="glyphicon glyphicon-stats icon text-info-dker"></i>
-      <span class="font-bold">入款管理</span>
-    </a>
-  </li>
-  <li ng-class="{active:$state.includes('app.lenderMng')}">
+  <li ng-class="{active:$state.includes('app.lenderMng')}" ng-if="app.settings.loginUser.type == 1 || app.settings.loginUser.type == 0">
     <a ui-sref="app.lenderMng">
       <i class="glyphicon glyphicon-stats icon text-info-dker"></i>
       <span class="font-bold">借贷人管理</span>
+    </a>
+  </li>
+  <li ng-class="{active:$state.includes('app.loanBillMng')}">
+    <a ui-sref="app.loanBillMng">
+      <i class="glyphicon glyphicon-stats icon text-info-dker"></i>
+      <span class="font-bold">入款管理</span>
     </a>
   </li>
   <li ng-class="{active:$state.includes('app.statisicMng')}">

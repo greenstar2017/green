@@ -29,7 +29,8 @@ import com.green.service.UserAccountService;
 
 /**
  * @author yuanhualiang
- *
+ * 
+ * 系统用户控制类
  */
 @Controller
 @RequestMapping("/console/systemAccount")

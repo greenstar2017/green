@@ -1,4 +1,4 @@
-app.controller('LenderMngCtrl', ['$rootScope','$scope', '$http', '$state', '$stateParams', 'toaster', 
+app.controller('LoanBillMngCtrl', ['$rootScope','$scope', '$http', '$state', '$stateParams', 'toaster', 
                               function($rootScope,$scope, $http, $state, $stateParams, toaster) {
 
 	CommonRequest.AngularBaseCtrl.call( this, $scope,$http,toaster);
@@ -9,7 +9,7 @@ app.controller('LenderMngCtrl', ['$rootScope','$scope', '$http', '$state', '$sta
 	//查询
 	$scope.queryResult = function() {
 		
-		$scope.postRequest({url: "/console/lender/lenderList.do", data: $.param($scope.params)}, function(resp){
+		$scope.postRequest({url: "/console/loanBill/loanBillList.do", data: $.param($scope.params)}, function(resp){
 			$scope.result = resp;
 			$scope.paginationConf.totalItems = resp.totalElements;
 		});
@@ -19,7 +19,7 @@ app.controller('LenderMngCtrl', ['$rootScope','$scope', '$http', '$state', '$sta
 	//删除
 	$scope.goDelete = function(data) {
 		$scope.commonConfirm("确定删除吗", function(){
-			$scope.postRequest({url: "/console/lender/delLender.do?id="+data.id, data: ''}, function(resp){
+			$scope.postRequest({url: "/console/loanBill/delLoanBill.do?id="+data.id, data: ''}, function(resp){
 				$scope.toaster_success();
 				$scope.queryResult();
 			});
@@ -31,6 +31,6 @@ app.controller('LenderMngCtrl', ['$rootScope','$scope', '$http', '$state', '$sta
 	
 	//跳转编辑页面
 	$scope.goEdit = function(data) {
-		$state.go('app.lender_edit', {id:data.id});
+		$state.go('app.loanBill_edit', {id:data.id});
 	}
 }]);

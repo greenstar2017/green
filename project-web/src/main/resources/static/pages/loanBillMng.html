@@ -1,0 +1,85 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">下款管理</h1>
+</div>
+<div class="wrapper-md" ng-controller="LoanBillMngCtrl">
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+  <div class="panel panel-default">
+    <div class="row wrapper">
+      <div class="col-sm-7">
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">&nbsp;
+        </div>
+      </div>
+      <div class="col-sm-2">
+      	<div class="btn-group pull-right">
+		     <a type="button" class="btn btn-sm btn-success glyphicon glyphicon-plus" ui-sref="app.loanBill_edit">添加</a>
+	     </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light" style="width: 2500px;">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>身份证号</th>
+             <th>下款途径</th>
+             <th>下款额度</th>
+             <th>到手额度</th>
+             <th>利息</th>
+             <th>周期</th>
+             <th>放款人</th>
+             <th>业务</th>
+             <th>催收人员</th>
+             <th>中介</th>
+             <th>返点</th>
+             <th>返点途径</th>
+             <th>日期</th>
+             <th>到期日</th>
+             <th>还款日</th>
+             <th>业务类型</th>
+             <th>收款金额</th>
+             <th>盈利</th>
+             <th>收款人</th>
+             <th>收款平台</th>
+             <th>下款状态</th>
+             <th>拒绝理由</th>
+            <th style="width:140px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in result.data">
+            <td>{{data.lenderName}}</td>
+            <td>{{data.lenderIdentity}}</td>
+            <td>{{data.loanWay}}</td>
+            <td>{{data.loanLimit}}</td>
+            <td>{{data.incomeLimie}}</td>
+            <td>{{data.interest}}</td>
+            <td>{{data.period}}</td>
+            <td>{{data.provideName}}</td>
+            <td>{{data.salesmanName}}</td>
+            <td>{{data.callmanName}}</td>
+            <td>{{data.agencyName}}</td>
+            <td>{{data.rebatePoint}}</td>
+            <td>{{data.rebatePointWay}}</td>
+            <td>{{data.createTime}}</td>
+            <td>{{data.expireTime}}</td>
+            <td>{{data.paybackTime}}</td>
+            <td>{{data.businessType}}</td>
+            <td>{{data.incomeAmount}}</td>
+            <th>{{data.profit}}</th>
+            <td>{{data.incomeName}}</td>
+            <td>{{data.incomePlatform}}</td>
+            <td>{{data.loanStatus}}</td>
+            <td>{{data.rejectReason}}</td>
+            <td>
+              <a type="button" class="btn-sm btn-warning" ng-click="goEdit(data)">编辑</a>
+              <a type="button" class="btn-sm btn-danger" ng-click="goDelete(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <tm-pagination conf="paginationConf"></tm-pagination>
+</div>

@@ -74,23 +74,26 @@ angular.module('app')
           return (/iPhone|iPod|iPad|Silk|Android|BlackBerry|Opera Mini|IEMobile/).test(ua);
       }
       
-      $scope.login = function(){
+      /**
+       * 获取系统基础数据
+       */
+      $scope.systemBaseData = function(){
   		$http({
   			method: 'POST' ,
-  			url: '/userLogin' ,
-  			data: $.param($scope.user), // pass in data as strings
+  			url: '/systemBaseData' ,
+  			data: '', // pass in data as strings
   			headers: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8; ajax' }
   		}).success( function (resp) {
   			if(resp.state == 0) {
   				$scope.app.settings.loginUser = resp.data.userAccount;
   				$scope.app.settings.baseData = resp.data.baseData;
-  				window.location.href = "/console#/app/receiptMng"
   			}else {
-  				$scope.errorMsg = resp.message;
+  				layer.msg(resp.message);
+				window.location.href = "/login.html"
   			}
   		}).error(function() {
   		});
-  		
   	}
+      $scope.systemBaseData();
 
   }]);
