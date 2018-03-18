@@ -108,4 +108,12 @@ CommonRequest.AngularBaseCtrl = function ( $scope,$http,toaster ) {
 			}
 		});
 	}
+  
+  //判断非空
+  $scope.isNotNull = function(val) {
+	  if(undefined != val && val.length != 0) {
+		  return true;
+	  }
+	  return false;
+  }
 };

@@ -62,6 +62,7 @@ public class LenderController extends BaseController {
 		Wrapper<Lender> wrapper = new EntityWrapper<>();
 		wrapper.eq("status", AccountStatusEnum.ENABLED.getKey());
 		wrapper.eq("creator_id", userId);
+		wrapper.orderBy("id", false);
 		Page<Lender> page = new Page<Lender>(pageNo, pageSize);
 		page = lenderService.selectPage(page, wrapper);
 

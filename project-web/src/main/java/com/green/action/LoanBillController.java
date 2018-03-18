@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Null;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.green.annotations.UserId;
 import com.green.common.BeanUtils;
+import com.green.common.DateTimeUtils;
 import com.green.constants.AccountTypeEnum;
 import com.green.constants.LenderStatusEnum;
 import com.green.constants.LoanBusinessTypeEnum;
@@ -77,7 +79,7 @@ public class LoanBillController extends BaseController {
 
 		Wrapper<LoanBill> wrapper = new EntityWrapper<>();
 		wrapper.eq("del_flag", LoanDelFlagEnum.ENABLED.getKey());
-		wrapper.eq("salesman_id", userId);
+		wrapper.orderBy("id", false);
 		Page<LoanBill> page = new Page<LoanBill>(pageNo, pageSize);
 		page = loanBillService.selectPage(page, wrapper);
 
@@ -100,14 +102,34 @@ public class LoanBillController extends BaseController {
 		boolean flag = false;
 		if (null != loanBillForm.getId()) {
 			try {
-				BeanUtils.copyProperties(loanBillForm, loanBill);
+				BeanUtils.copyPropertiesExclude(loanBillForm, loanBill, 
+						new String[]{"createTime", "expireTime", "paybackTime"});
+				if(StringUtils.isNotBlank(loanBillForm.getCreateTime())) {
+					loanBill.setCreateTime(DateTimeUtils.parseDateTime(loanBillForm.getCreateTime(), "yyyy-MM-dd"));
+				}
+				if(StringUtils.isNotBlank(loanBillForm.getExpireTime())) {
+					loanBill.setExpireTime(DateTimeUtils.parseDateTime(loanBillForm.getExpireTime(), "yyyy-MM-dd"));
+				}
+				if(StringUtils.isNotBlank(loanBillForm.getPaybackTime())) {
+					loanBill.setPaybackTime(DateTimeUtils.parseDateTime(loanBillForm.getPaybackTime(), "yyyy-MM-dd"));
+				}
 				flag = loanBillService.updateById(loanBill);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				BeanUtils.copyProperties(loanBillForm, loanBill);
+				BeanUtils.copyPropertiesExclude(loanBillForm, loanBill, 
+						new String[]{"createTime", "expireTime", "paybackTime"});
+				if(StringUtils.isNotBlank(loanBillForm.getCreateTime())) {
+					loanBill.setCreateTime(DateTimeUtils.parseDateTime(loanBillForm.getCreateTime(), "yyyy-MM-dd"));
+				}
+				if(StringUtils.isNotBlank(loanBillForm.getExpireTime())) {
+					loanBill.setExpireTime(DateTimeUtils.parseDateTime(loanBillForm.getExpireTime(), "yyyy-MM-dd"));
+				}
+				if(StringUtils.isNotBlank(loanBillForm.getPaybackTime())) {
+					loanBill.setPaybackTime(DateTimeUtils.parseDateTime(loanBillForm.getPaybackTime(), "yyyy-MM-dd"));
+				}
 				loanBill.setDelFlag(LoanDelFlagEnum.ENABLED.getKey());
 				flag = loanBillService.insert(loanBill);
 			} catch (Exception e) {
@@ -177,8 +199,7 @@ public class LoanBillController extends BaseController {
 		//查询财务、催收人员
 		Wrapper<UserAccount> uwrapper = new EntityWrapper<>();
 		uwrapper.eq("status", LenderStatusEnum.ENABLED.getKey());
-		uwrapper.and().and(" type in ({0}, {1})", AccountTypeEnum.CW.getKey(), AccountTypeEnum.CS.getKey());
-		uwrapper.eq("creator_id", userAccount.getId());
+		uwrapper.and(" type in ({0}, {1})", AccountTypeEnum.CW.getKey(), AccountTypeEnum.CS.getKey());
 		List<UserAccount> userAccountList = userAccountService.selectList(uwrapper);
 		
 		//财务/催收人员
@@ -205,7 +226,7 @@ public class LoanBillController extends BaseController {
 		loanBill.setCreateTime(new Date());
 		loanBill.setSalesmanId(userAccount.getId());
 		loanBill.setSalesmanName(userAccount.getName());
-		loanBill.setBusinessType(LoanBusinessTypeEnum.DOING.getKey());
+		loanBill.setBusinessType(LoanBusinessTypeEnum.WAITING.getKey());
 		loanBill.setLoanStatus(LoanStatusEnum.AUDITING.getKey());
 	}
 }

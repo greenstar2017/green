@@ -1,3 +1,11 @@
+<style>
+.yellow_class {
+background:yellow
+}
+.red_class {
+background:red
+}
+</style>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">下款管理</h1>
 </div>
@@ -49,29 +57,29 @@
         </thead>
         <tbody>
           <tr ng-repeat="data in result.data">
-            <td>{{data.lenderName}}</td>
-            <td>{{data.lenderIdentity}}</td>
-            <td>{{data.loanWay}}</td>
-            <td>{{data.loanLimit}}</td>
-            <td>{{data.incomeLimie}}</td>
-            <td>{{data.interest}}</td>
-            <td>{{data.period}}</td>
-            <td>{{data.provideName}}</td>
-            <td>{{data.salesmanName}}</td>
-            <td>{{data.callmanName}}</td>
-            <td>{{data.agencyName}}</td>
-            <td>{{data.rebatePoint}}</td>
-            <td>{{data.rebatePointWay}}</td>
-            <td>{{data.createTime}}</td>
-            <td>{{data.expireTime}}</td>
-            <td>{{data.paybackTime}}</td>
-            <td>{{data.businessType}}</td>
-            <td>{{data.incomeAmount}}</td>
-            <th>{{data.profit}}</th>
-            <td>{{data.incomeName}}</td>
-            <td>{{data.incomePlatform}}</td>
-            <td>{{data.loanStatus}}</td>
-            <td>{{data.rejectReason}}</td>
+            <td  ng-style="data.showColorStyle">{{data.lenderName}}</td>
+            <td  ng-style="data.showColorStyle">{{data.lenderIdentity}}</td>
+            <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanWayEnum" ng-if="data.loanWay == item.key">{{item.typeDes}}</span></td>
+            <td  ng-style="data.showColorStyle">{{data.loanLimit}}</td>
+            <td  ng-style="data.showColorStyle">{{data.incomeLimie}}</td>
+            <td  ng-style="data.showColorStyle">{{data.interest}}</td>
+            <td  ng-style="data.showColorStyle">{{data.period}}</td>
+            <td  ng-style="data.showColorStyle">{{data.provideName}}</td>
+            <td  ng-style="data.showColorStyle">{{data.salesmanName}}</td>
+            <td  ng-style="data.showColorStyle">{{data.callmanName}}</td>
+            <td  ng-style="data.showColorStyle">{{data.agencyName}}</td>
+            <td  ng-style="data.showColorStyle">{{data.rebatePoint}}</td>
+            <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanRebatePointWay" ng-if="data.rebatePointWay == item.key">{{item.typeDes}}</span></td>
+            <td  ng-style="data.showColorStyle">{{data.createTime|date:'yyyy-MM-dd'}}</td>
+            <td  ng-style="data.showColorStyle">{{data.expireTime|date:'yyyy-MM-dd'}}</td>
+            <td  ng-style="data.showColorStyle">{{data.paybackTime|date:'yyyy-MM-dd'}}</td>
+            <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanBusinessTypeEnum" ng-if="data.businessType == item.key">{{item.typeDes}}</span></td>
+            <td  ng-style="data.showColorStyle">{{data.incomeAmount}}</td>
+            <td  ng-style="data.showColorStyle">{{data.profitAmount}}</th>
+            <td  ng-style="data.showColorStyle">{{data.incomeName}}</td>
+            <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanIncomePlatformEnum" ng-if="data.incomePlatform == item.key">{{item.typeDes}}</span></td>
+            <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanStatusEnum" ng-if="data.loanStatus == item.key">{{item.typeDes}}</span></td>
+            <td  ng-style="data.showColorStyle">{{data.rejectReason}}</td>
             <td>
               <a type="button" class="btn-sm btn-warning" ng-click="goEdit(data)">编辑</a>
               <a type="button" class="btn-sm btn-danger" ng-click="goDelete(data)">删除</a>

@@ -58,6 +58,7 @@ public class UserAccountController extends BaseController {
 
 		Wrapper<UserAccount> wrapper = new EntityWrapper<>();
 		wrapper.eq("status", AccountStatusEnum.ENABLED.getKey());
+		wrapper.orderBy("id", false);
 		Page<UserAccount> page = new Page<UserAccount>(pageNo, pageSize);
 		page = userAccountService.selectPage(page, wrapper);
 

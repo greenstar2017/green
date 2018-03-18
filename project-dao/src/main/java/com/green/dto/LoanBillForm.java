@@ -6,6 +6,9 @@ package com.green.dto;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Max;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,6 +21,10 @@ public class LoanBillForm {
 	 * 下款ID
 	 */
 	private Integer id;
+	/**
+     * 借贷人ID
+     */
+	private Integer lenderId;
 	/**
 	 * 借贷人名称
 	 */
@@ -37,22 +44,22 @@ public class LoanBillForm {
 	/**
 	 * 下款额度
 	 */
-	@Length(max = 10, message = "下款额度长度不超过10位")
+	@DecimalMax(value = "1000000000", message = "下款额度长度不超过10位")
 	private BigDecimal loanLimit;
 	/**
 	 * 到手额度
 	 */
-	@Length(max = 10, message = "到手额度长度不超过10位")
+	@DecimalMax(value = "1000000000", message = "到手额度长度不超过10位")
 	private BigDecimal incomeLimie;
 	/**
 	 * 利息
 	 */
-	@Length(max = 10, message = "利息长度不超过10位")
+	@DecimalMax(value = "1000000000", message = "利息长度不超过10位")
 	private BigDecimal interest;
 	/**
 	 * 周期
 	 */
-	@Length(max = 10, message = "周期长度不超过10位")
+	@Max(value = 1000000000, message = "周期长度不超过10位")
 	private Integer period;
 	/**
 	 * 放款人名称
@@ -89,7 +96,7 @@ public class LoanBillForm {
 	/**
 	 * 返点
 	 */
-	@Length(max = 10, message = "返点长度不超过30位")
+	@DecimalMax(value = "1000000000", message = "返点长度不超过30位")
 	private BigDecimal rebatePoint;
 	/**
 	 * 返点途径 参考LoanRebatePointWay
@@ -114,7 +121,7 @@ public class LoanBillForm {
 	/**
 	 * 收款金额
 	 */
-	@Length(max = 10, message = "收款金额长度不超过10位")
+	@DecimalMax(value = "1000000000", message = "收款金额长度不超过10位")
 	private BigDecimal incomeAmount;
 	/**
 	 * 收款人名字
@@ -139,6 +146,12 @@ public class LoanBillForm {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getLenderId() {
+		return lenderId;
+	}
+	public void setLenderId(Integer lenderId) {
+		this.lenderId = lenderId;
 	}
 	public String getLenderName() {
 		return lenderName;

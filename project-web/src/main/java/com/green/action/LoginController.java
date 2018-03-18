@@ -22,6 +22,7 @@ import com.green.auth.utils.LoginUtils;
 import com.green.common.EnumTool;
 import com.green.constants.AccountTypeEnum;
 import com.green.constants.LoanBusinessTypeEnum;
+import com.green.constants.LoanIncomePlatformEnum;
 import com.green.constants.LoanRebatePointWay;
 import com.green.constants.LoanStatusEnum;
 import com.green.constants.LoanWayEnum;
@@ -122,8 +123,8 @@ public class LoginController {
 					EnumTool.getEnumPropertyMap(LoanRebatePointWay.class));
 			baseData.put("loanBusinessTypeEnum",
 					EnumTool.getEnumPropertyMap(LoanBusinessTypeEnum.class));
-			baseData.put("loanWayEnum",
-					EnumTool.getEnumPropertyMap(LoanWayEnum.class));
+			baseData.put("loanIncomePlatformEnum",
+					EnumTool.getEnumPropertyMap(LoanIncomePlatformEnum.class));
 			baseData.put("loanStatusEnum",
 					EnumTool.getEnumPropertyMap(LoanStatusEnum.class));
 			return RestObject.newOk("", resultData);

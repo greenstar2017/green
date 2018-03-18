@@ -27,8 +27,13 @@ public class LoanBill implements Serializable {
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
     /**
-     * 借贷人名称
+     * 借贷人ID
      */
+	@TableField("lender_id")
+	private Integer lenderId;
+	/**
+	 * 借贷人名称
+	 */
 	@TableField("lender_name")
 	private String lenderName;
     /**
@@ -138,7 +143,7 @@ public class LoanBill implements Serializable {
 	 * 收款人ID
 	 */
 	@TableField("income_id")
-	private BigDecimal incomeId;
+	private Integer incomeId;
     /**
      * 收款平台 参考LoanWayEnum
      */
@@ -182,6 +187,14 @@ public class LoanBill implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getLenderId() {
+		return lenderId;
+	}
+
+	public void setLenderId(Integer lenderId) {
+		this.lenderId = lenderId;
 	}
 
 	public String getLenderName() {
@@ -360,11 +373,11 @@ public class LoanBill implements Serializable {
 		this.incomeName = incomeName;
 	}
 
-	public BigDecimal getIncomeId() {
+	public Integer getIncomeId() {
 		return incomeId;
 	}
 
-	public void setIncomeId(BigDecimal incomeId) {
+	public void setIncomeId(Integer incomeId) {
 		this.incomeId = incomeId;
 	}
 

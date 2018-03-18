@@ -85,7 +85,7 @@ public class BeanUtils {
 				if (newValue.size() <= 0)
 					continue;
 			}
-
+			System.out.println(toMethodName);
 			toMethod.invoke(to, new Object[] { value });
 		}
 	}
