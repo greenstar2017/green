@@ -1,4 +1,5 @@
 package com.green.common;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -10,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
-
 
 /**
  * @author lenovo
@@ -24,11 +24,26 @@ public class BeanUtils {
 	 *            要复制的
 	 * @param to
 	 *            复制给
+	 * @param ignoreNull
+	 *            忽略null值
+	 */
+	public static void copyProperties(Object source, Object target,
+			boolean ignoreNull) throws Exception {
+
+		copyPropertiesExclude(source, target, null, ignoreNull);
+	}
+
+	/**
+	 * 利用反射实现对象之间相同属性复制
+	 * 
+	 * @param source
+	 * @param target
+	 * @throws Exception
 	 */
 	public static void copyProperties(Object source, Object target)
 			throws Exception {
 
-		copyPropertiesExclude(source, target, null);
+		copyPropertiesExclude(source, target, null, true);
 	}
 
 	/**
@@ -41,7 +56,7 @@ public class BeanUtils {
 	 * @throws Exception
 	 */
 	public static void copyPropertiesExclude(Object from, Object to,
-			String[] excludsArray) throws Exception {
+			String[] excludsArray, boolean ignoreNull) throws Exception {
 
 		List<String> excludesList = null;
 
@@ -75,7 +90,7 @@ public class BeanUtils {
 				continue;
 			Object value = fromMethod.invoke(from, new Object[0]);
 
-			if (value == null)
+			if (value == null && ignoreNull)
 				continue;
 			// 集合类判空处理
 			if (value instanceof Collection) {

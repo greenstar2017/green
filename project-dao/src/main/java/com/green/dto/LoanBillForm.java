@@ -26,6 +26,10 @@ public class LoanBillForm {
      */
 	private Integer lenderId;
 	/**
+	 * 下款编号
+	 */
+	private String loanCode;
+	/**
 	 * 借贷人名称
 	 */
 	@NotBlank(message = "借贷人名称不能为空")
@@ -140,6 +144,25 @@ public class LoanBillForm {
 	 * 下款状态 参考LoanStatusEnum
 	 */
 	private Integer loanStatus;
+	
+	/**
+     * 拒绝理由
+     */
+	@Length(max = 200, message = "拒绝理由长度不超过200位")
+	private String rejectReason;
+	/**
+     * 删除状态 参考LoanDelFlagEnum
+     */
+	private String delFlag;
+	
+	/**
+	 * 查询日期类型
+	 */
+	private Integer dateType;
+	
+	private String startDate;
+	
+	private String endDate;
 	
 	public Integer getId() {
 		return id;
@@ -302,6 +325,42 @@ public class LoanBillForm {
 	}
 	public void setLoanStatus(Integer loanStatus) {
 		this.loanStatus = loanStatus;
+	}
+	public String getRejectReason() {
+		return rejectReason;
+	}
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
+	}
+	public String getLoanCode() {
+		return loanCode;
+	}
+	public void setLoanCode(String loanCode) {
+		this.loanCode = loanCode;
+	}
+	public String getDelFlag() {
+		return delFlag;
+	}
+	public void setDelFlag(String delFlag) {
+		this.delFlag = delFlag;
+	}
+	public Integer getDateType() {
+		return dateType;
+	}
+	public void setDateType(Integer dateType) {
+		this.dateType = dateType;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	
 }

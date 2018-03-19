@@ -5,6 +5,20 @@ background:yellow
 .red_class {
 background:red
 }
+.margin-lr-10 {
+margin-left:10px;
+margin-right:10px;
+}
+.margin-lr-15 {
+margin-left:15px;
+margin-right:15px;
+}
+.wrapper {
+    padding: 5px;
+}
+label {
+    width: 60px;
+}
 </style>
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">下款管理</h1>
@@ -12,6 +26,115 @@ background:red
 <div class="wrapper-md" ng-controller="LoanBillMngCtrl">
 <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
   <div class="panel panel-default">
+    <!-- 查询条件 -->
+    <div class="row wrapper">
+      <div class="col-sm-12 m-b-xs">
+      	<select class="input-sm form-control w-sm inline v-middle margin-lr-10" ng-model="params.dateType">
+          <option value="0">录入日期</option>
+          <option value="1">到期日</option>
+          <option value="2">放款日</option>
+        </select>
+        <select class="input-sm form-control w-sm inline v-middle margin-lr-10" ng-model="params.dateRange" ng-change="changeDateRange();">
+          <option value="">--选择日期范围--</option>
+          <option value="0">近一个月</option>
+          <option value="1">上一个月</option>
+          <option value="3">上三个月</option>
+          <option value="6">上六个月</option>
+        </select>
+        <label class="label-sm label-control inline v-middle margin-lr-15">开始日期:</label> 
+        <span ng-controller="DatepickerDemoCtrl">
+			<input class="input-sm form-control w-sm inline v-middle" readonly="readonly"
+				datepicker-popup="yyyy-MM-dd" is-open="opened"
+				datepicker-options="dateOptions" 
+				close-text="Close" 
+				ng-change="formatParamsDate(params.startDate, 'startDate')"
+				ng-model="params.startDate">
+			<button type="button" class="btn btn-sm btn-default"
+				ng-click="open($event)">
+				<i class="glyphicon glyphicon-calendar"></i>
+			</button>
+		</span>
+		<label class="label-sm label-control inline v-middle margin-lr-15">结束日期:</label> 
+        <span ng-controller="DatepickerDemoCtrl">
+			<input class="input-sm form-control w-sm inline v-middle" readonly="readonly"
+				datepicker-popup="yyyy-MM-dd" is-open="opened"
+				datepicker-options="dateOptions" 
+				ng-change="formatParamsDate(params.endDate, 'endDate')"
+				ng-model="params.endDate">
+			<button type="button" class="btn btn-sm btn-default"
+				ng-click="open($event)">
+				<i class="glyphicon glyphicon-calendar"></i>
+			</button>
+		</span>
+		<div class="btn-group pull-right">
+		     <a type="button" class="btn btn-sm btn-default glyphicon glyphicon-sort" ng-click="params.showMoreCondition=!params.showMoreCondition">高级条件</a>
+	     </div>
+      </div>
+    </div>
+    <div class="row wrapper" ng-if="params.showMoreCondition">
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-10">下款编号:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.loanCode">
+    	</div>
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-15">姓名:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.lenderName">
+    	</div>
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-15">身份证号:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.lenderIdentity">
+    	</div>
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-15">下款状态:</label> 
+    		<select class="input-sm form-control w-sm inline v-middle" ng-model="params.loanStatus"
+    			ng-model="params.dateRange"
+    			ng-options="item.key as item.typeDes for item in app.settings.baseData.loanStatusEnum">
+	          <option value="">--请选择--</option>
+	        </select>
+    	</div>
+    </div>
+    <div class="row wrapper" ng-if="params.showMoreCondition">
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-10">业务员:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.salesmanName">
+    	</div>
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-15">放款员:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.provideName">
+    	</div>
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-15">收款员:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.incomeName">
+    	</div>
+    	<div class="col-sm-3">
+    		<label class="label-sm label-control inline v-middle margin-lr-15">催收员:</label> 
+    		<input type="text" class="input-sm form-control w-sm inline v-middle" ng-model="params.callmanName">
+    	</div>
+    </div>
+    <div class="row wrapper">
+    	<div class="col-sm-10" ng-if="!params.showMoreCondition"></div>
+      <div class="col-sm-10" ng-if="params.showMoreCondition">
+   		<label class="label-sm label-control inline v-middle margin-lr-10">业务类型:</label> 
+   		<select class="input-sm form-control w-sm inline v-middle" 
+   			 ng-model="params.businessType"
+   			ng-options="item.key as item.typeDes for item in app.settings.baseData.loanBusinessTypeEnum">
+          <option value="">--请选择--</option>
+        </select>
+        <label class="label-sm label-control inline v-middle margin-lr-15" style="margin-left:60px;">删除状态:</label> 
+   		<select class="input-sm form-control w-sm inline v-middle" 
+   			ng-model="params.delFlag" >
+          <option value="">--请选择--</option>
+          <option value="0">未删除</option>
+          <option value="1">已删除</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+      	<div class="btn-group pull-right">
+		     <a type="button" class="btn btn-sm btn-default glyphicon glyphicon-search" ng-click="queryResult();">立即查询</a>
+	     </div>
+      </div>
+    </div>
+    <div class="line line-dashed b-b line-lg pull-in"></div>
     <div class="row wrapper">
       <div class="col-sm-7">
       </div>
@@ -29,6 +152,7 @@ background:red
       <table class="table table-striped b-t b-light" style="width: 2500px;">
         <thead>
           <tr>
+          	<th>下款编号</th>
             <th>姓名</th>
             <th>身份证号</th>
              <th>下款途径</th>
@@ -52,11 +176,12 @@ background:red
              <th>收款平台</th>
              <th>下款状态</th>
              <th>拒绝理由</th>
-            <th style="width:140px;">操作</th>
+            <th style="width:280px;">操作</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="data in result.data">
+          	<td  ng-style="data.showColorStyle">{{data.loanCode}}</td>
             <td  ng-style="data.showColorStyle">{{data.lenderName}}</td>
             <td  ng-style="data.showColorStyle">{{data.lenderIdentity}}</td>
             <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanWayEnum" ng-if="data.loanWay == item.key">{{item.typeDes}}</span></td>
@@ -79,10 +204,15 @@ background:red
             <td  ng-style="data.showColorStyle">{{data.incomeName}}</td>
             <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanIncomePlatformEnum" ng-if="data.incomePlatform == item.key">{{item.typeDes}}</span></td>
             <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanStatusEnum" ng-if="data.loanStatus == item.key">{{item.typeDes}}</span></td>
-            <td  ng-style="data.showColorStyle">{{data.rejectReason}}</td>
+            <td  ng-style="data.showColorStyle"><a type="button" class="btn-sm btn-success" ng-click="showRejectReason(data.rejectReason);" ng-if="data.rejectReason">拒绝理由</a></td>
             <td>
-              <a type="button" class="btn-sm btn-warning" ng-click="goEdit(data)">编辑</a>
-              <a type="button" class="btn-sm btn-danger" ng-click="goDelete(data)">删除</a>
+              <a type="button" class="btn-sm btn-warning" ng-if="data.updateShow" ng-click="goEdit(data)">编辑</a>
+              <a type="button" class="btn-sm btn-danger" ng-if="data.deleteShow" ng-click="goDelete(data)">删除</a>
+              <a type="button" class="btn-sm btn-success" ng-if="data.receiveShow" ng-click="receiveLoanBill(data)">领取</a>
+              <!-- <a type="button" class="btn-sm btn-success" ng-if="data.alreadyReceiveShow" onclick="javascript:void(0);">已领取</a> -->
+              <a type="button" class="btn-sm btn-info" ng-if="data.addIncomeRecordShow" onclick="saveIncomeRecord();">添加收款</a>
+              <a type="button" class="btn-sm btn-info" ng-if="data.queryIncomeRecordShow" onclick="queryIncomeRecord();">查看收款</a>
+              <a type="button" class="btn-sm btn-danger" ng-if="data.alreadyDeleteShow" onclick="javascript:void(0);">已删除</a>
             </td>
           </tr>
         </tbody>

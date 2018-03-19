@@ -27,8 +27,23 @@ public class LoanBill implements Serializable {
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
     /**
-     * 借贷人ID
+     * 入款单编号
      */
+	@TableField("loan_code")
+	private String loanCode;
+	/**
+	 * 续期父贷款号ID
+	 */
+	@TableField("parent_id")
+	private Integer parentId;
+	/**
+	 * 续期数量
+	 */
+	@TableField("renewal_times")
+	private Integer renewalTimes;
+	/**
+	 * 借贷人ID
+	 */
 	@TableField("lender_id")
 	private Integer lenderId;
 	/**
@@ -187,6 +202,30 @@ public class LoanBill implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getLoanCode() {
+		return loanCode;
+	}
+
+	public void setLoanCode(String loanCode) {
+		this.loanCode = loanCode;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+
+	public Integer getRenewalTimes() {
+		return renewalTimes;
+	}
+
+	public void setRenewalTimes(Integer renewalTimes) {
+		this.renewalTimes = renewalTimes;
 	}
 
 	public Integer getLenderId() {
