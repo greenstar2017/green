@@ -52,6 +52,36 @@ angular.module('app')
                            );
                        }]
                   }
+              }).state('app.loanIncomeRecordMng', {
+                  url: '/loanIncomeRecordMng',
+                  templateUrl: 'pages/loanIncomeRecordMng.html',
+                  params:{'loanBillId':''},
+                  resolve: {
+                	  deps: ['$ocLazyLoad',
+                             function( $ocLazyLoad){
+                               return $ocLazyLoad.load(['tm.pagination', 'toaster']).then(
+                                   function(){
+                                      return $ocLazyLoad.load('pages/js/loanIncomeRecordMng.js?v='+new Date().getTime());
+                                   }
+                               );
+                           }]
+                  }
+              }).state('app.loanIncomeRecord_edit', {
+                  url: '/loanIncomeRecord_edit',
+                  templateUrl: 'pages/loanIncomeRecord_edit.html',
+                  params:{'id':'', 'loanBillId':''},
+                  resolve: {
+                  	deps: ['$ocLazyLoad',
+                         function( $ocLazyLoad){
+                           return $ocLazyLoad.load('toaster').then(
+                               function(){
+                                  return $ocLazyLoad.load([
+									'pages/js/loanIncomeRecord_edit.js?v='+new Date().getTime()
+								]);
+                               }
+                           );
+                       }]
+                  }
               }).state('app.lenderMng', {
                   url: '/lenderMng',
                   templateUrl: 'pages/lenderMng.html',

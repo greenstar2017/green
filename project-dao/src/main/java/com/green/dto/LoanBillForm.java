@@ -107,6 +107,10 @@ public class LoanBillForm {
 	 */
 	private Integer rebatePointWay;
 	/**
+     * 返点日
+     */
+	private String rebatePointDate;
+	/**
 	 * 录入日期
 	 */
 	private String createTime;
@@ -153,7 +157,7 @@ public class LoanBillForm {
 	/**
      * 删除状态 参考LoanDelFlagEnum
      */
-	private String delFlag;
+	private Integer delFlag;
 	
 	/**
 	 * 查询日期类型
@@ -338,10 +342,10 @@ public class LoanBillForm {
 	public void setLoanCode(String loanCode) {
 		this.loanCode = loanCode;
 	}
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 	public Integer getDateType() {
@@ -361,6 +365,12 @@ public class LoanBillForm {
 	}
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	public String getRebatePointDate() {
+		return rebatePointDate;
+	}
+	public void setRebatePointDate(String rebatePointDate) {
+		this.rebatePointDate = rebatePointDate;
 	}
 	
 }

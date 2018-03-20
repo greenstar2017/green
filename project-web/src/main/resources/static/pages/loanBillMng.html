@@ -33,6 +33,7 @@ label {
           <option value="0">录入日期</option>
           <option value="1">到期日</option>
           <option value="2">放款日</option>
+          <option value="3">返点日</option>
         </select>
         <select class="input-sm form-control w-sm inline v-middle margin-lr-10" ng-model="params.dateRange" ng-change="changeDateRange();">
           <option value="">--选择日期范围--</option>
@@ -166,6 +167,7 @@ label {
              <th>中介</th>
              <th>返点</th>
              <th>返点途径</th>
+             <th>返点日</th>
              <th>日期</th>
              <th>到期日</th>
              <th>还款日</th>
@@ -176,7 +178,7 @@ label {
              <th>收款平台</th>
              <th>下款状态</th>
              <th>拒绝理由</th>
-            <th style="width:280px;">操作</th>
+            <th style="width:220px;">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -195,6 +197,7 @@ label {
             <td  ng-style="data.showColorStyle">{{data.agencyName}}</td>
             <td  ng-style="data.showColorStyle">{{data.rebatePoint}}</td>
             <td  ng-style="data.showColorStyle"><span ng-repeat="item in app.settings.baseData.loanRebatePointWay" ng-if="data.rebatePointWay == item.key">{{item.typeDes}}</span></td>
+            <td  ng-style="data.showColorStyle">{{data.rebatePointDate|date:'yyyy-MM-dd'}}</td>
             <td  ng-style="data.showColorStyle">{{data.createTime|date:'yyyy-MM-dd'}}</td>
             <td  ng-style="data.showColorStyle">{{data.expireTime|date:'yyyy-MM-dd'}}</td>
             <td  ng-style="data.showColorStyle">{{data.paybackTime|date:'yyyy-MM-dd'}}</td>
@@ -208,10 +211,9 @@ label {
             <td>
               <a type="button" class="btn-sm btn-warning" ng-if="data.updateShow" ng-click="goEdit(data)">编辑</a>
               <a type="button" class="btn-sm btn-danger" ng-if="data.deleteShow" ng-click="goDelete(data)">删除</a>
-              <a type="button" class="btn-sm btn-success" ng-if="data.receiveShow" ng-click="receiveLoanBill(data)">领取</a>
+              <a type="button" class="btn-sm btn-success" ng-if="data.receiveShow" ng-click="doReceiveLoanBill(data)">领取</a>
               <!-- <a type="button" class="btn-sm btn-success" ng-if="data.alreadyReceiveShow" onclick="javascript:void(0);">已领取</a> -->
-              <a type="button" class="btn-sm btn-info" ng-if="data.addIncomeRecordShow" onclick="saveIncomeRecord();">添加收款</a>
-              <a type="button" class="btn-sm btn-info" ng-if="data.queryIncomeRecordShow" onclick="queryIncomeRecord();">查看收款</a>
+              <a type="button" class="btn-sm btn-info" ng-if="data.queryIncomeRecordShow" ng-click="goIncomeRecord(data.id);">收款记录</a>
               <a type="button" class="btn-sm btn-danger" ng-if="data.alreadyDeleteShow" onclick="javascript:void(0);">已删除</a>
             </td>
           </tr>

@@ -12,5 +12,12 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2018-03-17
  */
 public interface LoanBillService extends IService<LoanBill> {
-	
+
+	/**
+	 * 回写收款记录到下款单
+	 * 
+	 * @param loanBillId
+	 * @return
+	 */
+	boolean updateLoanIncomeByRecord(int loanBillId);
 }

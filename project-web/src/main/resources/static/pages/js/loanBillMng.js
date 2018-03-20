@@ -55,10 +55,10 @@ app.controller('LoanBillMngCtrl', ['$rootScope','$scope', '$http', '$state', '$s
 	/**
 	 * 计算盈利
 	 */
-	$scope.countProfitAmount = function(data) {
+	$scope.countProfitAmount = function(data) {debugger;
 		var countFlag = false;
 		if(data.businessType == 1) {//进行中=(-1)*返点
-			if($scope.isNotNull(data.rebatePoint)) {
+			if($scope.isNotNull(data.rebatePoint) && $scope.isNotNull(data.rebatePointDate)) {
 				data.profitAmount = -1 * data.rebatePoint;
 				countFlag = true;
 			}
@@ -71,7 +71,8 @@ app.controller('LoanBillMngCtrl', ['$rootScope','$scope', '$http', '$state', '$s
 			}
 		}else if(data.businessType == 3
 				||data.businessType == 4
-				||data.businessType == 6) {//全款/逾期还款/提前全款=收款金额-到手额度-返点
+				||data.businessType == 6
+				||data.businessType == 8) {//全款/逾期还款/提前全款/催收=收款金额-到手额度-返点
 			if($scope.isNotNull(data.incomeAmount) 
 					&& $scope.isNotNull(data.rebatePoint) 
 					&& $scope.isNotNull(data.incomeLimie)) {
@@ -112,7 +113,6 @@ app.controller('LoanBillMngCtrl', ['$rootScope','$scope', '$http', '$state', '$s
 					if(data.delFlag == 1) {
 						data.showColorStyle = {"background-color" : "#9B9D9E"};
 					}
-					debugger;
 					//按钮展示控制
 					data.deleteShow = false;//删除操作
 					data.updateShow = false;//编辑操作
@@ -173,11 +173,26 @@ app.controller('LoanBillMngCtrl', ['$rootScope','$scope', '$http', '$state', '$s
 		});
     }
 	
+	//催收员领取
+	$scope.doReceiveLoanBill = function(data) {
+		$scope.commonConfirm("确定领取吗", function(){
+			$scope.postRequest({url: "/console/loanBill/receiveLoanBill.do?id="+data.id, data: ''}, function(resp){
+				$scope.toaster_success();
+				$scope.queryResult();
+			});
+		});
+    }
+	
 	//分页
 	$scope.commonPaginationConf();
 	
 	//跳转编辑页面
 	$scope.goEdit = function(data) {
 		$state.go('app.loanBill_edit', {id:data.id});
+	}
+	
+	//跳转收款记录页面
+	$scope.goIncomeRecord = function(loanBillId) {
+		$state.go('app.loanIncomeRecordMng', {loanBillId:loanBillId});
 	}
 }]);

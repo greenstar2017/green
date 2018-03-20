@@ -110,15 +110,15 @@
 								value="{{item.key}}">{{item.typeDes}}</option>
 						</select>
 					</div>
-					<label class="col-sm-2 control-label">日期</label>
+					<label class="col-sm-2 control-label">返点日</label>
 					<div class="col-sm-3" ng-controller="DatepickerDemoCtrl">
 						<div class="input-group w-md">
 							<input class="form-control" readonly="readonly"
 								datepicker-popup="yyyy-MM-dd" is-open="opened"
-								datepicker-options="dateOptions" ng-required="true"
+								datepicker-options="dateOptions"
 								close-text="Close" 
-								ng-change="changeExpireTime()"
-								ng-model="data.loanBill.createTime">
+								ng-change="changeDateFormatToStr(data.loanBill.rebatePointDate, 'rebatePointDate');"
+								ng-model="data.loanBill.rebatePointDate">
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default"
 									ng-click="open($event)">
@@ -131,6 +131,23 @@
 				
 				<div class="line line-dashed b-b line-lg pull-in"></div>
 				<div class="form-group">
+					<label class="col-sm-2 control-label">日期</label>
+					<div class="col-sm-3" ng-controller="DatepickerDemoCtrl">
+						<div class="input-group w-md">
+							<input class="form-control" readonly="readonly"
+								datepicker-popup="yyyy-MM-dd" is-open="opened"
+								datepicker-options="dateOptions" ng-required="true"
+								close-text="Close" 
+								ng-change="changeDateFormatToStr(data.loanBill.createTime, 'createTime');changeExpireTime()"
+								ng-model="data.loanBill.createTime">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									ng-click="open($event)">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</span>
+						</div>
+					</div>
 					<label class="col-sm-2 control-label">到期日</label>
 					<div class="col-sm-3" ng-controller="DatepickerDemoCtrl">
 						<div class="input-group w-md">
@@ -148,6 +165,10 @@
 							</span>
 						</div>
 					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
 					<label class="col-sm-2 control-label">还款日</label>
 					<div class="col-sm-3" ng-controller="DatepickerDemoCtrl">
 						<div class="input-group w-md">
@@ -165,10 +186,6 @@
 							</span>
 						</div>
 					</div>
-				</div>
-				
-				<div class="line line-dashed b-b line-lg pull-in"></div>
-				<div class="form-group">
 					<label class="col-sm-2 control-label">业务类型</label>
 					<div class="col-sm-3">
 						<select class="form-control" ng-model="data.loanBill.businessType" ng-change="changeBusinessType();">
@@ -176,20 +193,24 @@
 								value="{{item.key}}">{{item.typeDes}}</option>
 						</select>
 					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
 					<label class="col-sm-2 control-label">收款金额</label>
 					<div class="col-sm-3">
 						<input class="form-control" type="number" ng-change="countProfitAmount();" id="incomeAmountId"
 							ng-model="data.loanBill.incomeAmount">
 					</div>
-				</div>
-				
-				<div class="line line-dashed b-b line-lg pull-in"></div>
-				<div class="form-group">
 					<label class="col-sm-2 control-label">盈利</label>
 					<div class="col-sm-3">
 						<input class="form-control" ng-readonly="true"
 							ng-model="data.loanBill.profitAmount">
 					</div>
+				</div>
+				
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
 					<label class="col-sm-2 control-label">收款员</label>
 					<div class="col-sm-3">
 						<select class="form-control" ng-model="data.loanBill.incomeId"
@@ -198,10 +219,6 @@
 						>
 						</select>
 					</div>
-				</div>
-				
-				<div class="line line-dashed b-b line-lg pull-in"></div>
-				<div class="form-group">
 					<label class="col-sm-2 control-label">收款平台</label>
 					<div class="col-sm-3">
 						<select class="form-control" ng-model="data.loanBill.incomePlatform">
@@ -209,6 +226,9 @@
 								value="{{item.key}}">{{item.typeDes}}</option>
 						</select>
 					</div>
+				</div>
+				<div class="line line-dashed b-b line-lg pull-in"></div>
+				<div class="form-group">
 					<label class="col-sm-2 control-label">下款状态</label>
 					<div class="col-sm-3">
 						<select class="form-control" ng-model="data.loanBill.loanStatus"
@@ -218,7 +238,6 @@
 						</select>
 					</div>
 				</div>
-				
 				<div class="line line-dashed b-b line-lg pull-in"></div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">拒绝理由</label>

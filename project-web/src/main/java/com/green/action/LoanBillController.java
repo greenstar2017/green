@@ -89,6 +89,8 @@ public class LoanBillController extends BaseController {
 				field = "expire_time";
 			} else if (2 == loanBillForm.getDateType()) {// 到款日
 				field = "payback_time";
+			} else if (3 == loanBillForm.getDateType()) {// 返点日
+				field = "rebate_point_date";
 			}
 			if (StringUtils.isNotEmpty(loanBillForm.getStartDate())
 					&& StringUtils.isNotEmpty(loanBillForm.getEndDate())) {
@@ -166,7 +168,7 @@ public class LoanBillController extends BaseController {
 				loanBill = loanBillService.selectById(loanBillForm.getId());
 				BeanUtils.copyPropertiesExclude(loanBillForm, loanBill,
 						new String[] { "createTime", "expireTime",
-								"paybackTime" }, false);
+								"paybackTime", "rebatePointDate" }, false);
 				if (StringUtils.isNotBlank(loanBillForm.getCreateTime())) {
 					loanBill.setCreateTime(DateTimeUtils.parseDateTime(
 							loanBillForm.getCreateTime(), "yyyy-MM-dd"));
@@ -185,6 +187,12 @@ public class LoanBillController extends BaseController {
 				} else {
 					loanBill.setPaybackTime(null);
 				}
+				if (StringUtils.isNotBlank(loanBillForm.getRebatePointDate())) {
+					loanBill.setRebatePointDate(DateTimeUtils.parseDateTime(
+							loanBillForm.getRebatePointDate(), "yyyy-MM-dd"));
+				} else {
+					loanBill.setRebatePointDate(null);
+				}
 				loanBill.setModifyId(userAccount.getId());
 				loanBill.setModifyName(userAccount.getName());
 				loanBill.setModifyTime(new Date());
@@ -196,7 +204,7 @@ public class LoanBillController extends BaseController {
 			try {
 				BeanUtils.copyPropertiesExclude(loanBillForm, loanBill,
 						new String[] { "createTime", "expireTime",
-								"paybackTime" }, false);
+								"paybackTime", "rebatePointDate" }, false);
 				if (StringUtils.isNotBlank(loanBillForm.getCreateTime())) {
 					loanBill.setCreateTime(DateTimeUtils.parseDateTime(
 							loanBillForm.getCreateTime(), "yyyy-MM-dd"));
@@ -208,6 +216,12 @@ public class LoanBillController extends BaseController {
 				if (StringUtils.isNotBlank(loanBillForm.getPaybackTime())) {
 					loanBill.setPaybackTime(DateTimeUtils.parseDateTime(
 							loanBillForm.getPaybackTime(), "yyyy-MM-dd"));
+				}
+				if (StringUtils.isNotBlank(loanBillForm.getRebatePointDate())) {
+					loanBill.setPaybackTime(DateTimeUtils.parseDateTime(
+							loanBillForm.getRebatePointDate(), "yyyy-MM-dd"));
+				} else {
+					loanBill.setRebatePointDate(null);
 				}
 				loanBill.setDelFlag(LoanDelFlagEnum.ENABLED.getKey());
 				loanBill.setLoanCode(genenteCode());

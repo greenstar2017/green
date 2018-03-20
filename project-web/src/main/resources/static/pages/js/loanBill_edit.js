@@ -35,6 +35,7 @@ app.controller('LoanBillEditCtrl', ['$scope', '$http', '$stateParams', '$state',
 		$scope.changeDateFormatToStr($scope.data.loanBill.createTime, "createTime");
 		$scope.changeDateFormatToStr($scope.data.loanBill.expireTime, "expireTime");
 		$scope.changeDateFormatToStr($scope.data.loanBill.paybackTime, "paybackTime");
+		$scope.changeDateFormatToStr($scope.data.loanBill.rebatePointDate, "rebatePointDate");
 		
 		//保留上一次修改业务类型的值
 		$scope.lastChangeBusinessTypeVal = $scope.data.loanBill.businessType;
@@ -67,41 +68,43 @@ app.controller('LoanBillEditCtrl', ['$scope', '$http', '$stateParams', '$state',
 	//计算盈利
 	$scope.countProfitAmount = function() {
 		var countFlag = false;
-		if($scope.data.loanBill.businessType == 1) {//进行中=(-1)*返点
-			if($scope.isNotNull($scope.data.loanBill.rebatePoint)) {
-				$scope.data.loanBill.profitAmount = -1 * $scope.data.loanBill.rebatePoint;
+		var data = $scope.data.loanBill;
+		if(data.businessType == 1) {//进行中=(-1)*返点
+			if($scope.isNotNull(data.rebatePoint) && $scope.isNotNull(data.rebatePointDate)) {
+				data.profitAmount = -1 * data.rebatePoint;
 				countFlag = true;
 			}
-		}else if($scope.data.loanBill.businessType == 2) {//续期=收款金额-返点
-			if($scope.isNotNull($scope.data.loanBill.incomeAmount) 
-					&& $scope.isNotNull($scope.data.loanBill.rebatePoint)) {
-				$scope.data.loanBill.profitAmount = $scope.floatSub($scope.data.loanBill.incomeAmount,
-						$scope.data.loanBill.rebatePoint);
+		}else if(data.businessType == 2) {//续期=收款金额-返点
+			if($scope.isNotNull(data.incomeAmount) 
+					&& $scope.isNotNull(data.rebatePoint)) {
+				data.profitAmount = $scope.floatSub(data.incomeAmount,
+						data.rebatePoint);
 				countFlag = true;
 			}
-		}else if($scope.data.loanBill.businessType == 3
-				||$scope.data.loanBill.businessType == 4
-				||$scope.data.loanBill.businessType == 6) {//全款/逾期还款/提前全款=收款金额-到手额度-返点
-			if($scope.isNotNull($scope.data.loanBill.incomeAmount) 
-					&& $scope.isNotNull($scope.data.loanBill.rebatePoint) 
-					&& $scope.isNotNull($scope.data.loanBill.incomeLimie)) {
-				$scope.data.loanBill.profitAmount = $scope.floatSub($scope.floatSub(
-						$scope.data.loanBill.incomeAmount,
-						$scope.data.loanBill.incomeLimie), 
-						$scope.data.loanBill.rebatePoint);
+		}else if(data.businessType == 3
+				||data.businessType == 4
+				||data.businessType == 6
+				||data.businessType == 8) {//全款/逾期还款/提前全款=收款金额-到手额度-返点
+			if($scope.isNotNull(data.incomeAmount) 
+					&& $scope.isNotNull(data.rebatePoint) 
+					&& $scope.isNotNull(data.incomeLimie)) {
+				data.profitAmount = $scope.floatSub($scope.floatSub(
+						data.incomeAmount,
+						data.incomeLimie), 
+						data.rebatePoint);
 				countFlag = true;
 			}
-		}else if($scope.data.loanBill.businessType == 7) {//逾期=负（到手额度+返点）
-			if($scope.isNotNull($scope.data.loanBill.rebatePoint) 
-					&& $scope.isNotNull($scope.data.loanBill.incomeLimie)) {
-				$scope.data.loanBill.profitAmount = -1 * $scope.floatAdd($scope.data.loanBill.incomeLimie, 
-						$scope.data.loanBill.rebatePoint);
+		}else if(data.businessType == 7) {//逾期=负（到手额度+返点）
+			if($scope.isNotNull(data.rebatePoint) 
+					&& $scope.isNotNull(data.incomeLimie)) {
+				data.profitAmount = -1 * $scope.floatAdd(data.incomeLimie, 
+						data.rebatePoint);
 				countFlag = true;
 			}
 		}
 		
 		if(!countFlag) {
-			$scope.data.loanBill.profitAmount = "";
+			data.profitAmount = "";
 		}
 	}
 	

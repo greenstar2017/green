@@ -124,6 +124,11 @@ public class LoanBill implements Serializable {
      */
 	@TableField("rebate_point_way")
 	private Integer rebatePointWay;
+	/**
+     * 返点日
+     */
+	@TableField("rebate_point_date")
+	private Date rebatePointDate;
     /**
      * 录入日期
      */
@@ -362,6 +367,14 @@ public class LoanBill implements Serializable {
 
 	public void setRebatePointWay(Integer rebatePointWay) {
 		this.rebatePointWay = rebatePointWay;
+	}
+
+	public Date getRebatePointDate() {
+		return rebatePointDate;
+	}
+
+	public void setRebatePointDate(Date rebatePointDate) {
+		this.rebatePointDate = rebatePointDate;
 	}
 
 	public Date getCreateTime() {

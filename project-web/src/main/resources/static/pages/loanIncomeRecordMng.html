@@ -1,0 +1,45 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">收款记录管理</h1>
+</div>
+<div class="wrapper-md" ng-controller="LoanIncomeRecordMngCtrl">
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+  <div class="panel panel-default">
+    <div class="row wrapper">
+      <div class="col-sm-7">
+      		 <a type="button" class="btn btn-sm btn-default" ui-sref="app.loanBillMng" style="float:left">返回</a>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group">&nbsp;
+        </div>
+      </div>
+      <div class="col-sm-2">
+      	<div class="btn-group pull-right">
+		     <a type="button" class="btn btn-sm btn-success glyphicon glyphicon-plus" ng-click="goAdd()">添加</a>
+	     </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped b-t b-light">
+        <thead>
+          <tr>
+            <th>收款人</th>
+            <th>收款日</th>
+             <th>收款金额</th>
+            <th style="width:140px;">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="data in result.data">
+            <td>{{data.creatorName}}</td>
+            <td>{{data.incomeTime|date:'yyyy-MM-dd'}}</td>
+            <td>{{data.incomeAmount}}</td>
+            <td>
+              <a type="button" class="btn-sm btn-danger" ng-click="goDelete(data)">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <tm-pagination conf="paginationConf"></tm-pagination>
+</div>
