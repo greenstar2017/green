@@ -4,6 +4,7 @@
  */
 package com.green.action;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -223,8 +224,7 @@ public class LoanBillController extends BaseController {
 				} else {
 					loanBill.setRebatePointDate(null);
 				}
-				loanBill.setDelFlag(LoanDelFlagEnum.ENABLED.getKey());
-				loanBill.setLoanCode(genenteCode());
+				
 				flag = loanBillService.insert(loanBill);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -232,6 +232,10 @@ public class LoanBillController extends BaseController {
 		}
 
 		if (flag) {
+			//续期自动生成新的下款单
+			if(LoanBusinessTypeEnum.XUQI.getKey() == loanBill.getBusinessType()) {
+				createNewLoanBill(loanBill, userAccount);
+			}
 			return RestObject.newOk("保存成功");
 		} else {
 			return RestObject.newError("保存失败");
@@ -343,6 +347,46 @@ public class LoanBillController extends BaseController {
 		loanBill.setSalesmanName(userAccount.getName());
 		loanBill.setBusinessType(LoanBusinessTypeEnum.WAITING.getKey());
 		loanBill.setLoanStatus(LoanStatusEnum.AUDITING.getKey());
+		loanBill.setRebatePoint(BigDecimal.ZERO);
+		loanBill.setParentId(0);
+		loanBill.setRenewalTimes(0);
+		loanBill.setDelFlag(LoanDelFlagEnum.ENABLED.getKey());
+		loanBill.setLoanCode(genenteCode());
+	}
+	
+	/**
+	 * 预期类型，创建一条新的入款单
+	 * 
+	 * @param loanBill
+	 */
+	private void createNewLoanBill(LoanBill loanBill, UserAccount userAccount) {
+		
+		LoanBill newLoanBill = new LoanBill();
+		init(newLoanBill, userAccount);
+		
+		newLoanBill.setLenderId(loanBill.getLenderId());
+		newLoanBill.setLenderIdentity(loanBill.getLenderIdentity());
+		newLoanBill.setLenderName(loanBill.getLenderName());
+		newLoanBill.setLoanLimit(loanBill.getLoanLimit());
+		newLoanBill.setIncomeLimie(loanBill.getIncomeLimie());
+		newLoanBill.setInterest(loanBill.getInterest());
+		newLoanBill.setPeriod(loanBill.getPeriod());
+		
+		int renewTimes = loanBill.getRenewalTimes();
+		renewTimes = renewTimes + 1;
+		
+		newLoanBill.setLoanCode(loanBill.getLoanCode() + "_" + renewTimes);
+		newLoanBill.setParentId(loanBill.getParentId());
+		
+		boolean flag = loanBillService.insert(newLoanBill);
+		if(flag) {
+			//更新续期次数
+			LoanBill parentLoanBill = new LoanBill();
+			parentLoanBill.setId(loanBill.getId());
+			parentLoanBill.setRenewalTimes(renewTimes);
+			loanBillService.updateById(parentLoanBill);
+		}
+		
 	}
 
 	/**

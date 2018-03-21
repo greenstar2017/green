@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Null;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import com.green.annotations.NoRequireLogin;
 import com.green.annotations.UserId;
 import com.green.auth.utils.LoginUtils;
 import com.green.common.EnumTool;
+import com.green.common.MD5Util;
 import com.green.constants.AccountTypeEnum;
 import com.green.constants.LoanBusinessTypeEnum;
 import com.green.constants.LoanIncomePlatformEnum;
@@ -30,6 +32,7 @@ import com.green.dto.LoginForm;
 import com.green.entity.UserAccount;
 import com.green.response.RestObject;
 import com.green.service.LoginService;
+import com.green.service.UserAccountService;
 
 /**
  * @author yuanhualiang
@@ -41,6 +44,9 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private UserAccountService userAccountService;
 
 	/**
 	 * 登录页面跳转
@@ -147,6 +153,37 @@ public class LoginController {
 			HttpServletResponse response, @UserId long userId) {
 		LoginUtils.logout(request, response, userId);
 		return "login";
+	}
+	
+	/**
+	 * 重置密码
+	 * @param request
+	 * @param response
+	 * @param userAccount
+	 * @param oldPwd
+	 * @param newPwd
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/resetPwd")
+	public RestObject resetPwd(HttpServletRequest request,
+			HttpServletResponse response, UserAccount userAccount, 
+			@Null(message = "原密码不能为空") String oldPwd, 
+			@Null(message = "新密码不能为空") String newPwd) {
+		String oldPwdMd5 = MD5Util.getMD5code(oldPwd);
+		if(!oldPwdMd5.equals(userAccount.getPassword())) {
+			return RestObject.newError("原密码不正确");
+		} else {
+			String newPwdMd5 = MD5Util.getMD5code(newPwd);
+			
+			userAccount.setPassword(newPwdMd5);
+			boolean flag = userAccountService.updateById(userAccount);
+			if(flag) {
+				return RestObject.newOk("密码重置成功");
+			} else {
+				return RestObject.newError("密码重置失败");
+			}
+		}
 	}
 
 	@ResponseBody

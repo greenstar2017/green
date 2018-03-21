@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -48,11 +49,13 @@ public class LoanBillForm {
 	/**
 	 * 下款额度
 	 */
+	@NotNull(message = "下款额度不能为空")
 	@DecimalMax(value = "1000000000", message = "下款额度长度不超过10位")
 	private BigDecimal loanLimit;
 	/**
 	 * 到手额度
 	 */
+	@NotNull(message = "到手额度不能为空")
 	@DecimalMax(value = "1000000000", message = "到手额度长度不超过10位")
 	private BigDecimal incomeLimie;
 	/**

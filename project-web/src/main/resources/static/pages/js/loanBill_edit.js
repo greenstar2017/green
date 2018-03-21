@@ -199,6 +199,26 @@ app.controller('LoanBillEditCtrl', ['$scope', '$http', '$stateParams', '$state',
 	}
 	
 	$scope.save = function(){
+		//判断返点和返点日同时存在
+		if($scope.isNotNull($scope.data.loanBill.rebatePoint) 
+				&& $scope.data.loanBill.rebatePoint != 0 
+				&& !$scope.isNotNull($scope.data.loanBill.rebatePointDate)) {
+			layer.msg("输入返点金额后，请选择返点日！");
+			return false;
+		}
+		if((!$scope.isNotNull($scope.data.loanBill.rebatePoint) || $scope.data.loanBill.rebatePoint == 0)
+				&& $scope.isNotNull($scope.data.loanBill.rebatePointDate)) {
+			layer.msg("选择返点日后，请输入返点金额！");
+			return false;
+		}
+		//除了催收类型，填了还款金额必须选择还款日
+		if($scope.data.loanBill.businessType != 8 
+				&& (!$scope.isNotNull($scope.data.loanBill.incomeAmount) 
+				|| $scope.data.loanBill.incomeAmount != 0)
+				&& !$scope.isNotNull($scope.data.loanBill.paybackTime)) {
+			layer.msg("输入收款金额后，请选择还款日！");
+			return false;
+		}
 		$scope.postRequest({url: "/console/loanBill/saveLoanBill.do", data: $.param($scope.data.loanBill)}, function(resp){
 			if(resp.state == 0) {
 				$scope.toaster_success();
