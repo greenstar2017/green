@@ -55,7 +55,7 @@ app.controller('LoanBillMngCtrl', ['$rootScope','$scope', '$http', '$state', '$s
 	/**
 	 * 计算盈利
 	 */
-	$scope.countProfitAmount = function(data) {debugger;
+	$scope.countProfitAmount = function(data) {
 		var countFlag = false;
 		if(data.businessType == 1) {//进行中=(-1)*返点
 			if($scope.isNotNull(data.rebatePoint) && $scope.isNotNull(data.rebatePointDate)) {

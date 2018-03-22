@@ -27,7 +27,6 @@ public class LoginUtils {
 				LoginConstants.TOKEN_SIGN_SECRET, userId);
 		CookieUtils.addCookie(response, LoginConstants.TOKEN_NAME, tokenString,
 				PropertiesContants.that.getCookieBaseDomain(), "/", Integer.MAX_VALUE);
-
 		return tokenString;
 	}
 
